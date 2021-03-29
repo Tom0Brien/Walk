@@ -1,11 +1,11 @@
-function output = plotRobot(jointAngles)
+function output = plotRobot(jointAngles,param)
 close all;
 %% Build Robot
 robot = rigidBodyTree('DataFormat','column');
-L1 = 1;
-L2 = 1;
-L3 = 1;
-L4 = 1;
+L1 = param.L1;
+L2 = param.L2;
+L3 = param.L3;
+L4 = param.L4;
 % Link 1
 body = rigidBody('link1');
 joint = rigidBodyJoint('joint1', 'revolute');
@@ -42,14 +42,8 @@ body.Joint = joint;
 addBody(robot, body, 'link4');
 
 transform = getTransform(robot,[0;0;0;0],'tool','base')
-% showdetails(robot)
-% %Define Trajecrtory
-t = (0:0.2:10)'; % Time
-% count = length(t);
-center = [0.1 0 0];
-radius = 0.1;
-theta = t*(2*pi/t(end))/2;
-points = center + radius*[-cos(theta) sin(theta) zeros(size(theta))];
+
+points = param.points;
 %% Plot Robot Configurations
 s = size(jointAngles');
 count = s(2);

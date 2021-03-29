@@ -1,0 +1,38 @@
+clc;
+clear;
+close all;
+robot = importrobot('NUgus.urdf');
+robot.DataFormat = 'column';
+%% 1: Trajectory Plan
+trajectory = zeros(3,10);
+T = 0.01;
+for t = 1:T:10
+    trajectory(:,t) = [(t-1)*0.25;0;t - 1]*0.025;
+end
+s = length(trajectory);
+for t = 1:T:10
+    trajectory(:,t+s) = trajectory(:,10)+[t - 1;0;0]*0.01;
+end
+s = length(trajectory);
+for t = 1:T:10
+    trajectory(:,t+s) = trajectory(:,20)+[0;0;t - 1]*-0.025;
+end
+
+%shift to right foot
+trajectory = trajectory + [0.0294;-0.08;-0.4443];
+sim_time = length(trajectory);
+%% 2: Inverse Kinematics
+opt_joint_angles = zeros(20,sim_time);
+joints0 = initialConditions;
+for i = 1:sim_time
+    ed = [[0 -1 0;-1 0 0;0 0 -1;0 0 0], [trajectory(:,i);1]]; %Desired end effector position
+    cost = @(joint_angles) norm(ed - Kinematics3D(joint_angles));
+%     + norm(centerOfMass(robot,joint_angles).*[1,0,0]);
+    [joints_opt, costVal] = fmincon(cost,joints0);
+    joints0 = joints_opt; %Set the next initial conditons to the optimal solution found
+    opt_joint_angles(:,i) = joints_opt;
+end
+
+%% Plot
+param.trajectory = trajectory;
+plot3DRobot(opt_joint_angles,param);

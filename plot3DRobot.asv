@@ -7,7 +7,7 @@ trajectory = param.trajectory;
 %% Plot Robot Configurations
 count = length(opt_jointAngles);
 figure
-show(robot,initialConditions);
+show
 view(2)
 ax = gca;
 ax.Projection = 'orthographic';
