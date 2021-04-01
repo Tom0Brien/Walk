@@ -1,4 +1,4 @@
-function output = Kinematics3D(q)
+function output = Kinematics3D(q,foot)
 %% Axis rotations
 Rx = @(phi) [1,0,0;...
              0,cos(phi),-sin(phi);...
@@ -14,7 +14,7 @@ Rz = @(psi)[cos(psi) -sin(psi) 0;...
             0 0 1;...
            ];
 
-%% Homogeneous Transforms
+%% Homogeneous Transforms Trunk Based Coordinates
 %right_hip_yaw
 Hb1 = @(q12) [eulerRotation([0,0,pi/2])*Rz(q12), [0;-0.055;0]
               0 0 0 1;
@@ -63,8 +63,20 @@ H910 = @(q5) [eulerRotation([pi,0,-pi])*Rx(-q5), [0;    0.01; -0.2]
 H1011 = @(q6) [eulerRotation([-pi,0,-pi])*Ry(-q6), [0;    0.04;  0]
               0 0 0 1;
             ];
-        
+%% Homogenous transforms support foot based
+Hb10 = @(q1,q2,q3,q4,q5) Hb6(q1)*H67(q2)*H78(q3)*H89(q4)*H910(q5);
+Hb5 =  @(q1,q2,q3,q4,q5) Hb1(q12)*H12(q13)*H23(q14)*H34(q15)*H45(q16)
+
+H10b = @(q1,q2,q3,q4,q5) inv(Hb10(q1,q2,q3,q4,q5));
+
+H105 = @(q1,q2,q3,q4,q5)
+
+     
+%% Outputs        
 % output transform from torso to right foot
-ot = Hb1(q(12))*H12(q(13))*H23(q(14))*H34(q(15))*H45(q(16));
+output.rightTransform = Hb1(q(12))*H12(q(13))*H23(q(14))*H34(q(15))*H45(q(16));
+output.leftTransform = Hb6(q(1))*H67(q(2))*H78(q(3))*H89(q(4))*H910(q(5));
+output.leftPosition = output.leftTransform(1:3,4);
+output.leftToTorso = H109(-q(5))*H98(-q(4))*H87(-q(3))*H76(-q(2))*H6b(-q(1));
 % output = transform(1:3,4);
 end

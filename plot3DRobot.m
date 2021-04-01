@@ -17,7 +17,7 @@ framesPerSecond = 5;
 r = rateControl(framesPerSecond);
 for i = 1:count
     center = centerOfMass(robot,opt_jointAngles(:,i))
-    p = plot3(center(1),center(2),center(3),'.');
+    p = plot3(center(1),center(2),center(3),'o');
     show(robot,opt_jointAngles(:,i),'PreservePlot',false);
     drawnow
     waitfor(r);
