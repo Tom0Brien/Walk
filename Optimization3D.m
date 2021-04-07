@@ -1,42 +1,44 @@
-clc;
+ clc;
 clear;
 close all;
-robot = importrobot('NUgus.urdf');
-robot.DataFormat = 'column';
-showdetails(robot);
-%% 1: Trajectory Plan
-trajectory = zeros(3,10);
-for t = 1:10
-    trajectory(:,t) = [(t - 1)*0.5;0;t - 1]*0.02;
-end
-for t = 1:10
-    trajectory(:,t+10) = trajectory(:,10)+[t - 1;0;0]*0.01;
-end
-for t = 1:10
-    trajectory(:,t+20) = trajectory(:,20)+[0;0;t - 1]*-0.02;
-end
+%% Load robot from urdf
+torsoRobot = importrobot('NUgus.urdf');
+torsoRobot.DataFormat = 'column';
+getTransform(torsoRobot,zeros(20,1),'left_foot','right_foot');
+show(torsoRobot)
+figure(1);
+N = 13;
+leftFootRobot = leftSupportRobotModel;
+leftFootRobot.DataFormat = 'column';
+getTransform(leftFootRobot,zeros(N,1),'left_foot','right_foot');
+Kinematics3D(zeros(20,1)).leftToRightFoot
 
+%% 1: Trajectory Plan
+stepLength = 0.1;
+stepHeight = 0.1;
+numPoints = 30;
 %shift to right foot
-trajectory = trajectory + [0.0294;-0.08;-0.4443];
+trajectory = evalFootGait(stepLength,stepHeight,numPoints) - [0;0.15;0];
+plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:))
 sim_time = length(trajectory);
 %% 2: Inverse Kinematics
-opt_joint_angles = zeros(20,sim_time);
+opt_joint_angles = zeros(N,sim_time);
+%Step 1
 joints0 = initialConditions;
+joints0 = zeros(N,1)
+torso_transforms = zeros(4,4,30);
 for i = 1:sim_time
-    rotation = [-0.0292   -0.9824    0.1843;
-                -0.9976    0.0171   -0.0669;
-                0.0626   -0.1858   -0.9806;
-                0 0 0];
-    ed = [rotation, [trajectory(:,i);1]]; %Desired end effector position
-    qcentre = 0.01;
-    cost = @(joint_angles) norm(ed - Kinematics3D(joint_angles).rightTransform);
+    position = @(transform) transform(1:3,4);
+    rotation = @(transform) transform(1:3,1:3);
+    cost = @(joint_angles) norm(trajectory(:,i) - position(getTransform(leftFootRobot,joint_angles,'right_foot'))) ...
+                            + 0.5*trace(eye(3)-eulerRotation([0,0,-pi/2])*rotation(getTransform(leftFootRobot,joint_angles,'right_foot')));
     A = [];
     b = [];
     Aeq = [];
     beq = [];
     lb = [];
     ub = [];
-    nlconstraint = @(joint_angles) nonlconFoot(joint_angles,robot);
+    nlconstraint = @(joint_angles) nonlconFoot(joint_angles,leftFootRobot);
     [joints_opt, costVal] = fmincon(cost,joints0,A,b,Aeq,beq,lb,ub,nlconstraint);
     joints0 = joints_opt; %Set the next initial conditons to the optimal solution found
     opt_joint_angles(:,i) = joints_opt;
@@ -44,4 +46,5 @@ end
 
 %% Plot
 param.trajectory = trajectory;
-plot3DRobot(opt_joint_angles,param);
+param.N = N;
+plot3DRobot(opt_joint_angles,leftFootRobot,param);
