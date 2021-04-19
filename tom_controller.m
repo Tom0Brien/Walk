@@ -45,25 +45,44 @@ right_hip_pitch = wb_robot_get_device('right_hip_pitch');
 neck_yaw = wb_robot_get_device('neck_yaw');
 head_pitch = wb_robot_get_device('head_pitch');
 
+wb_motor_set_velocity(left_hip_yaw, 0.075);
+wb_motor_set_velocity(left_hip_roll, 0.075);
+wb_motor_set_velocity(left_ankle_roll, 0.075);
+wb_motor_set_velocity(right_hip_yaw, 0.075);
+wb_motor_set_velocity(right_hip_roll, 0.075);
+wb_motor_set_velocity(right_ankle_roll, 0.075);
+wb_motor_set_velocity(right_shoulder_pitch, 0.075);
+wb_motor_set_velocity(right_shoulder_roll, 0.075);
+wb_motor_set_velocity(right_elbow_pitch, 0.075);
+wb_motor_set_velocity(left_shoulder_pitch, 0.075);
+wb_motor_set_velocity(left_shoulder_roll, 0.075);
+wb_motor_set_velocity(left_elbow_pitch, 0.075);
+wb_motor_set_velocity(left_ankle_pitch, 0.075);
+wb_motor_set_velocity(left_knee_pitch, 0.075);
+wb_motor_set_velocity(left_hip_pitch, 0.075);
+wb_motor_set_velocity(right_ankle_pitch, 0.075);
+wb_motor_set_velocity(right_knee_pitch, 0.075);
+wb_motor_set_velocity(right_hip_pitch, 0.075);
 
-wb_motor_set_position(left_hip_yaw, 0.02923973);
-wb_motor_set_position(left_hip_roll, 0.06261409);
-wb_motor_set_position(left_ankle_roll, -0.06909663);
-wb_motor_set_position(right_hip_yaw, -0.02923973);
-wb_motor_set_position(right_hip_roll, -0.06261409);
-wb_motor_set_position(right_ankle_roll, 0.06909663);
-wb_motor_set_position(right_shoulder_pitch, 1.963495);
-wb_motor_set_position(right_shoulder_roll, -0.1239184);
-wb_motor_set_position(right_elbow_pitch, -2.443461);
-wb_motor_set_position(left_shoulder_pitch, 1.963495);
-wb_motor_set_position(left_shoulder_roll, 0.1239184);
-wb_motor_set_position(left_elbow_pitch, -2.443461);
-wb_motor_set_position(left_ankle_pitch, -0.2623748);
-wb_motor_set_position(left_knee_pitch, 0.2945004);
-wb_motor_set_position(left_hip_pitch, -0.207138);
-wb_motor_set_position(right_ankle_pitch, -0.2393594);
-wb_motor_set_position(right_knee_pitch, 0.2561415);
-wb_motor_set_position(right_hip_pitch, -0.2040693);
+
+% wb_motor_set_position(left_hip_yaw, 0.02923973);
+% wb_motor_set_position(left_hip_roll, 0.06261409);
+% wb_motor_set_position(left_ankle_roll, -0.06909663);
+% wb_motor_set_position(right_hip_yaw, -0.02923973);
+% wb_motor_set_position(right_hip_roll, -0.06261409);
+% wb_motor_set_position(right_ankle_roll, 0.06909663);
+% wb_motor_set_position(right_shoulder_pitch, 1.963495);
+% wb_motor_set_position(right_shoulder_roll, -0.1239184);
+% wb_motor_set_position(right_elbow_pitch, -2.443461);
+% wb_motor_set_position(left_shoulder_pitch, 1.963495);
+% wb_motor_set_position(left_shoulder_roll, 0.1239184);
+% wb_motor_set_position(left_elbow_pitch, -2.443461);
+% wb_motor_set_position(left_ankle_pitch, -0.2623748);
+% wb_motor_set_position(left_knee_pitch, 0.2945004);
+% wb_motor_set_position(left_hip_pitch, -0.207138);
+% wb_motor_set_position(right_ankle_pitch, -0.2393594);
+% wb_motor_set_position(right_knee_pitch, 0.2561415);
+% wb_motor_set_position(right_hip_pitch, -0.2040693);
 
 %knee_position_sensor = wb_motor_get_position_sensor(right_knee_pitch);
 %wb_position_sensor_enable(knee_position_sensor, TIME_STEP);
@@ -74,13 +93,10 @@ wb_motor_set_position(right_hip_pitch, -0.2040693);
 
 opt_joint_angles = importdata('servo_positions.mat');
 
-sim_time = length(opt_joint_angles);   
+sim_time = length(opt_joint_angles)
+disp(sim_time)   
 j = 1;
 time = 0;
-wb_motor_set_velocity(right_ankle_pitch,1);
-wb_motor_set_velocity(right_knee_pitch,0.25);
-wb_motor_set_velocity(right_hip_pitch,0.25);
-wb_motor_set_velocity(left_knee_pitch,0.25);
 while wb_robot_step(TIME_STEP) ~= -1
 time = time + TIME_STEP;
   if(j < sim_time - 1 & time/100 > j) %& (wb_motor_get_target_position(right_knee_pitch)-wb_position_sensor_get_value(knee_position_sensor)) < 0.05)% & (wb_motor_get_target_position(right_ankle_pitch)-wb_position_sensor_get_value(ankle_position_sensor)) < 0.05 & (wb_motor_get_target_position(right_hip_pitch)-wb_position_sensor_get_value(hip_position_sensor)) < 0.05)

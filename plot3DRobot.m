@@ -31,7 +31,6 @@ for i = 1:param.numSamples
     trajectoryF(:,i) = position(getTransform(robot,opt_jointAngles(:,i),param.supportFoot,'torso')) + rotation(getTransform(robot,opt_jointAngles(:,i),param.supportFoot,'torso'))*[param.trajectory(1,i);param.trajectory(2,i);param.trajectory(3,i)];
 %     kF(:,i) = position(getTransform(robot,opt_jointAngles(:,i),'left_foot','torso')) + rotation(getTransform(robot,opt_jointAngles(:,i),'left_foot','torso'))*k;
     plot3(trajectoryF(1,i),trajectoryF(2,i),trajectoryF(3,i),'x');
-
     p = plot3(center(1),center(2),center(3),'o');
     show(robot,opt_jointAngles(:,i),'PreservePlot',false);
     drawnow

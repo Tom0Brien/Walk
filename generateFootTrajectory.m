@@ -33,7 +33,7 @@ tt0 = t0.^(0:3).';
 T0 = [tt0,D*tt0];
 %apex of swing foot trajectory z = 0.15, velocity = 0;
 Z1 = [param.stepHeight 0];
-t1 = param.stepTime/2;
+t1 = param.stepTime/4;
 tt1 = t1.^(0:3).';
 T1 = [tt1,D*tt1];
 %back down to ground
