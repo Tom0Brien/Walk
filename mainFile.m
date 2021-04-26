@@ -1,4 +1,4 @@
-clc;
+lc;
 clear;
 close all;
 %% Forward kinematics
