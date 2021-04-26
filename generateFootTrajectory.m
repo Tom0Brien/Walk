@@ -1,10 +1,14 @@
 function output = generateFootTrajectory(param,isHalfStep)
+%% Helper Functions
+position = @(transform) transform(1:3,4);
 %% Half step case
 if isHalfStep == true
    stepLength = param.stepLength/2;
 else
    stepLength = param.stepLength;
 end
+%% Initial Position
+init = position(getTransform(param.robot,param.initialConditions,param.swingFoot,param.supportFoot));
 %% Generate spline trajectoy for swing foot to follow - X
 D = diag(1:3,-1);
 X0 = [0 0];
@@ -52,10 +56,7 @@ tt = t.^((0:3).');
 z = [z C2*tt];
 v = [v C2*D*tt];
 output = [x;zeros(1,param.numSamples);z];
-if param.supportFoot == "left_foot"
-    output = output - [0;param.stepWidth;0];
-else 
-    output = output + [0;param.stepWidth;0];
-end
+% Shift initial point to swing foot
+output = output + position(getTransform(param.robot,param.initialConditions,param.swingFoot,param.supportFoot));
 end
 

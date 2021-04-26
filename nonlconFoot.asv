@@ -1,4 +1,4 @@
-function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
+function [c,ceq] = nonlconFoot(joint_angles,robot,param)
     %% Helper Functions
     position = @(transform) transform(1:3,4);
     rotation = @(transform) transform(1:3,1:3);
@@ -11,10 +11,10 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
     %% Constraints
     c =[
         %Ensure CoM (foot space) is within support polygon
-        rCFf(1)-0.115;...  %CoMx <= 0.115
-        -rCFf(1)-0.115;... %CoMx >= -0.115
-        rCFf(2)-0.065;...  %CoMy <= 0.065
-        -rCFf(2)-0.065;... %CoMx <= -0.065
+        rCFf(1)-0.21/2;...  %CoMx <= 0.115
+        -rCFf(1)-0.21/2;... %CoMx >= -0.115
+        rCFf(2)-0.13/2;...  %CoMy <= 0.065
+        -rCFf(2)-0.13/2;... %CoMx <= -0.065
         %Ensure knees are bent backwards
         joint_angles(15) - pi/2;
         -joint_angles(15);
@@ -34,7 +34,7 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
         norm(joint_angles(16) - joints0(5)) - 0.75;
         norm(joint_angles(17) - joints0(6)) - 0.75;
        ];
-   % Switch between locking support foot hips
+   % Switch be
    if(param.supportFoot == "left_foot")
     hip_yaw = joint_angles(1);
     hip_pitch = joint_angles(3);
@@ -54,9 +54,9 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
          joint_angles(20);
          joint_angles(11);
          %Keep support foot hip rigid
-%          hip_yaw;
-%          hip_pitch;
-%          hip_roll;
+         hip_yaw;
+         hip_pitch;
+         hip_roll;
          0;
          0;
          0;

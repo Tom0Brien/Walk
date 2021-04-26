@@ -2,10 +2,9 @@ function output = plot3DRobot(opt_jointAngles,robot,param)
 close all;
 %% Helper Functions
 position = @(transform) transform(1:3,4);
-rotation = @(transform) transform(1:3,1:3);
 %% Plot Robot Configurations
 figure
-init = zeros(param.NumBodies,1)
+init = zeros(param.numBodies,1)
 show(robot,init);
 view(2)
 ax = gca;
@@ -21,24 +20,32 @@ k = [0.115, 0.065;
     0.115, -0.065;
     0.115, 0.065;];
 %% Initialize video
-myVideo = VideoWriter('myVideoFile','MPEG-4'); %open video file
-myVideo.FrameRate = 5;  %can adjust this, 5 - 10 works well for me
-open(myVideo)
-trajectoryF = zeros(3,param.numSamples);
-kF = zeros(3,param.numSamples);
-for i = 1:param.numSamples
-    center = centerOfMass(robot,opt_jointAngles(:,i));
-    trajectoryF(:,i) = position(getTransform(robot,opt_jointAngles(:,i),param.supportFoot,'torso')) + rotation(getTransform(robot,opt_jointAngles(:,i),param.supportFoot,'torso'))*[param.trajectory(1,i);param.trajectory(2,i);param.trajectory(3,i)];
-%     kF(:,i) = position(getTransform(robot,opt_jointAngles(:,i),'left_foot','torso')) + rotation(getTransform(robot,opt_jointAngles(:,i),'left_foot','torso'))*k;
-    plot3(trajectoryF(1,i),trajectoryF(2,i),trajectoryF(3,i),'x');
-    p = plot3(center(1),center(2),center(3),'o');
+center = zeros(3,param.numSamples(2));
+supportFootPosition = zeros(3,param.numSamples(2));
+for i = 1:param.numSamples(2)
+    center(:,i) = centerOfMass(robot,opt_jointAngles(:,i));
+    supportFootPosition(:,i) = position(getTransform(robot,opt_jointAngles(:,i),param.supportFoot));
+    p = plot3(center(1,i),center(2,i),center(3,i),'o');
     show(robot,opt_jointAngles(:,i),'PreservePlot',false);
     drawnow
-    frame = getframe(gcf); %get frame
-    writeVideo(myVideo, frame);
     waitfor(r);
 end
-close(myVideo)
-
+%% Plot CoM position
+figure(2)
+hold on;
+plot(1:param.numSamples(2),supportFootPosition(1,:)+0.115,'--');
+hold on;
+plot(1:param.numSamples(2),supportFootPosition(1,:)-0.115,'--');
+hold on;
+plot(1:param.numSamples(2),center(1,:));
+legend('CoM upper limit','CoM lower limit','CoM position (torso space)');
+figure(3)
+hold on;
+plot(1:param.numSamples(2),supportFootPosition(2,:)+0.13/2,'--');
+hold on;
+plot(1:param.numSamples(2),supportFootPosition(2,:)-0.13/2,'--');
+hold on;
+plot(1:param.numSamples(2),center(2,:));
+legend('CoM upper limit','CoM lower limit','CoM position (torso space)');
 end
 
