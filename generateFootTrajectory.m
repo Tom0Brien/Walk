@@ -24,10 +24,6 @@ t = linspace(t0,t1,param.numSamples);
 tt = t.^((0:3).');
 x = C*tt;
 v = C*D*tt;
-
-figure(1);
-plot(t,x,t,v);
-legend('x position','x velocity');
 %% Generate spline trajectoy for swing foot to follow - Z
 D = diag(1:3,-1);
 %initial position
@@ -37,7 +33,7 @@ tt0 = t0.^(0:3).';
 T0 = [tt0,D*tt0];
 %apex of swing foot trajectory z = 0.15, velocity = 0;
 Z1 = [param.stepHeight 0];
-t1 = param.stepTime/4;
+t1 = param.stepTime/2;
 tt1 = t1.^(0:3).';
 T1 = [tt1,D*tt1];
 %back down to ground
@@ -58,5 +54,14 @@ v = [v C2*D*tt];
 output = [x;zeros(1,param.numSamples);z];
 % Shift initial point to swing foot
 output = output + position(getTransform(param.robot,param.initialConditions,param.swingFoot,param.supportFoot));
+%% Plot trajectory in torso space
+show(param.robot,param.initialConditions);
+hold on;
+Htf = getTransform(param.robot,param.initialConditions,param.supportFoot,'torso');
+trajectory = zeros(4,param.numSamples);
+for i=1:param.numSamples
+    trajectory(:,i) = Htf*[output(:,i);1];
+end
+plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
 end
 

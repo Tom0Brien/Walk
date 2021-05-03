@@ -2,8 +2,8 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
     %% Convert centerOfMass into foot space
     rCTt = [centerOfMass(robot,joint_angles);1];
     %Keep CoM in support polygon (foot_space)
-    Hft = getTransform(robot,joint_angles,'torso',param.supportFoot);
-    rCFf = Hft*rCTt; %CoM to foot space
+    Hft = getTransform(robot,joint_angles,param.supportFoot,'torso');
+    rCFf = Hft*rCTt %CoM to foot space
     
     %% Constraints
     c =[
