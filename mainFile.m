@@ -6,13 +6,8 @@ robot = importrobot('NUgus.urdf');
 robot.DataFormat = 'column';
 %% Params
 param = gaitParameters(robot);
-% %% Trajectory Plan CoM -> left support
-% param.supportFoot = 'left_foot';
-% param.swingFoot = 'right_foot';
-% com_trajectory = generateCoMTrajectory(param);
-% %% Inverse Kinematics - CoM -> left support
-% [opt_joint_angles_1] = inverseKinematicsCoM(robot,com_trajectory,param)
 %% Trajectory Plan Half Step
+param.initialConditions = initialConditions;
 param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
 % param.initialConditions = opt_joint_angles_1(:,end);
@@ -20,13 +15,6 @@ isHalfStep = true;
 trajectory_1 = generateFootTrajectory(param,isHalfStep);
 %% Inverse Kinematics - Half Step - support foot -> left
 [opt_joint_angles_1] = inverseKinematics(robot,trajectory_1,param);
-% %% Trajectory Plan CoM -> right support
-% param.supportFoot = 'right_foot';
-% param.swingFoot = 'left_foot';
-% param.initialConditions = opt_joint_angles_2(:,end);
-% com_trajectory = generateCoMTrajectory(param);
-% %% Inverse Kinematics - CoM -> left support
-% [opt_joint_angles_3] = inverseKinematicsCoM(robot,com_trajectory,param)
 %% Trajectory Plan Full Step
 param.supportFoot = 'right_foot';
 param.swingFoot = 'left_foot';

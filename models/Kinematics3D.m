@@ -1,92 +1,71 @@
-function output = Kinematics3D(q)
-%% Axis rotations
-Rx = @(phi) [1,0,0;...
-             0,cos(phi),-sin(phi);...
-             0,sin(phi),cos(phi);...
+function output = Kinematics3D(q_in,param)
+%% Map urdf joint angles to kinematics
+q = [q_in(12),q_in(13),q_in(14),q_in(15),q_in(16),q_in(17),q_in(1),q_in(2),q_in(3),q_in(4),q_in(5),q_in(6)];
+%% Carnogical stuff
+rotx = @(phi) [1,0,0,0;...
+             0,cos(phi),-sin(phi),0;...
+             0,sin(phi),cos(phi),0;...
+             0,0,0,1;
             ];
-Ry = @(theta)[cos(theta), 0,sin(theta); ...
-              0,1,0; ...
-              -sin(theta), 0, cos(theta);...
+roty = @(theta)[cos(theta), 0,sin(theta),0; ...
+              0,1,0,0; ...
+              -sin(theta), 0, cos(theta),0;...
+              0,0,0,1
               ];
 
-Rz = @(psi)[cos(psi) -sin(psi) 0;...
-            sin(psi) cos(psi) 0;...
-            0 0 1;...
+rotz = @(psi)[cos(psi) -sin(psi) 0 0;...
+            sin(psi) cos(psi) 0 0;...
+            0 0 1 0;...
+            0 0 0 1
            ];
-
+       
+tranx = @(x) [[eye(3);zeros(1,3)],[x;0;0;1]];
+trany = @(y) [[eye(3);zeros(1,3)],[0;y;0;1]];
+tranz = @(z) [[eye(3);zeros(1,3)],[0;0;z;1]];
+%% Params
+hip_yaw = 0.055;
+hip_roll = 0.06;
+hip_pitch = 0;
+upper_leg = 0.2;
+lower_leg = 0.2;
+ankle = 0;
 %% Homogeneous Transforms Trunk Based Coordinates
 %right_hip_yaw
-Hb1 = @(q12) [Rz(q12)*eulerRotation([0,0,pi/2]), [0;-0.055;0]
-              0 0 0 1;
-];
+A01 = trany(-hip_yaw);
 %right_hip_roll
-H12 = @(q13) [Ry(-q13), [0;0;-0.06]
-              0 0 0 1;
-            ];
+A12 = @(q1) rotz(q1)*roty(pi/2)*tranx(hip_roll);
 %right_hip_pitch
-H23 = @(q14) [Rx(q14)*eulerRotation([-0.05,0,0]), [0;-0.01;0.01]
-              0 0 0 1;
-            ];
-%right_knee_pitch
-H34 = @(q15) [Rx(q15)*eulerRotation([0.05,0,0]), [0; 0.00999; -0.19975]
-              0 0 0 1;
-            ];
-%right_ankle_pitch
-H45 = @(q16) [Rx(-q16)*eulerRotation([pi,0,-pi]), [0;    0.01; -0.2]
-              0 0 0 1;
-            ];
-%right_ankle_roll
-H56 = @(q17) [Ry(-q17)*eulerRotation([-pi,0,-pi]), [0;    0.04;  0]
-              0 0 0 1;
-            ];
-%left_hip_yaw
-Hb6 = @(q1) [Rz(q1)*eulerRotation([0,0,pi/2]), [0;0.055;0]
-              0 0 0 1;
-            ]; 
+A23 = @(q2) rotz(q2)*rotx(-pi/2)*tranx(hip_pitch);
+%right_upper_leg
+A34 = @(q3) rotz(q3)*tranx(upper_leg);
+%right_lower_leg
+A45 = @(q4) rotz(q4)*tranx(lower_leg);
+%right_ankle
+A56 = @(q5) rotz(q5)*rotx(pi/2)*tranx(ankle);
+%right_foot
+A6R = @(q6) rotz(q6);
+%right_hip_yaw
+A07 = trany(hip_yaw);
 %left_hip_roll
-H67 = @(q2) [Ry(-q2), [0;0;-0.06]
-              0 0 0 1;
-            ];
+A78 = @(q7) rotz(q7)*roty(pi/2)*tranx(hip_roll);
 %left_hip_pitch
-H78 = @(q3) [Rx(q3)*eulerRotation([-0.05,0,0]), [0;-0.01;0]
-              0 0 0 1;
-            ];
-%left_knee_pitch
-H89 = @(q4) [Rx(q4)*eulerRotation([0.05,0,0]), [0;0.00949;-0.18976]
-              0 0 0 1;
-            ];
-%left_ankle_pitch
-H910 = @(q5) [Rx(-q5)*eulerRotation([pi,0,-pi]), [0;    0.01; -0.2]
-              0 0 0 1;
-            ];
-%left_ankle_roll
-H1011 = @(q6) [Ry(-q6)*eulerRotation([-pi,0,-pi]), [0;    0.04;  0]
-              0 0 0 1;
-            ];
-%% Homogeneous transforms support foot based
-%torso to left foot
-Hb10 = @(q1,q2,q3,q4,q5,q6) Hb6(q1)*H67(q2)*H78(q3)*H89(q4)*H910(q5)*H1011(q6);
-%left foot to torso
-H10b = @(q1,q2,q3,q4,q5,q6) inv(Hb10(q1,q2,q3,q4,q5,q6));
-%torso to right foot
-Hb5 =  @(q12,q13,q14,q15,q16,q17) Hb1(q12)*H12(q13)*H23(q14)*H34(q15)*H45(q16)*H56(q17);
-%left foot to right foot
-H105 = @(q1,q2,q3,q4,q5,q6,q12,q13,q14,q15,q16,q17) H10b(q1,q2,q3,q4,q5,q6)*Hb5(q12,q13,q14,q15,q16,q17);
-%right foot to left foot
-H510 = @(q1,q2,q3,q4,q5,q6,q12,q13,q14,q15,q16,q17) inv(H105(q1,q2,q3,q4,q5,q6,q12,q13,q14,q15,q16,q17));
-
-% H105(0,0,0,0,0,0,0,0,0,0)
+A89 = @(q8) rotz(q8)*rotx(-pi/2)*tranx(hip_pitch);
+%left_upper_leg
+A910 = @(q9) rotz(q9)*tranx(upper_leg);
+%left_lower_leg
+A1011 = @(q10) rotz(q10)*tranx(lower_leg);
+%left_ankle
+A1112 = @(q11) rotz(q11)*rotx(pi/2)*tranx(ankle);
+%left_foot
+A12L = @(q12) rotz(q12);
      
 %% Outputs        
-% output transform from torso to right foot
-output.torsoToRightFoot = Hb1(q(12))*H12(q(13))*H23(q(14))*H34(q(15))*H45(q(16))*H56(q(17));
-output.torsoToLeftFoot = Hb6(q(1))*H67(q(2))*H78(q(3))*H89(q(4))*H910(q(5))*H1011(q(6));
-output.leftFootToTorso = inv(output.torsoToLeftFoot);
-output.leftFootToTorsoPosition = output.leftFootToTorso(1:3,4);
-output.leftPosition = output.torsoToLeftFoot(1:3,4);
-output.rightPosition = output.torsoToRightFoot(1:3,4);
-output.leftToRightFoot = H105(q(1),q(2),q(3),q(4),q(5),q(6),q(12),q(13),q(14),q(15),q(16),q(17));
-output.leftToRightFootPosition = output.leftToRightFoot(1:3,4);
-output.rightToLeftFoot = H510(q(1),q(2),q(3),q(4),q(5),q(6),q(12),q(13),q(14),q(15),q(16),q(17));
-output.rightToLeftFootPosition = output.rightToLeftFoot(1:3,4);
+T0R = A01*A12(q(1))*A23(q(2))*A34(q(3))*A45(q(4))*A56(q(5))*A6R(q(6))
+T0L = A07*A78(q(7))*A89(q(8))*A910(q(9))*A1011(q(10))*A1112(q(11))*A12L(q(12))
+param.supportFoot = 'left_foot';
+if(param.supportFoot == 'left_foot')
+    output.end_effector = inv(T0L)*T0R;
+else
+    output.end_effector = inv(T0R)*T0L;
+end
 end
