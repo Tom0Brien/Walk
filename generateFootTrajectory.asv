@@ -58,7 +58,7 @@ output = output + xe(kinematics3D(param.initialConditions,param));
 %% Plot trajectory in torso space
 show(param.robot,param.initialConditions);
 hold on;
-transform = @(kinematics) kinematics.T0L;
+transform = @(kinematics) kinematics.T;
 Htf = transform(kinematics3D(param.initialConditions,param));
 trajectory = zeros(4,param.numSamples);
 for i=1:param.numSamples
