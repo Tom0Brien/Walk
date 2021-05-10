@@ -1,6 +1,5 @@
 function output = plotWalk(opt_jointAngles,robot,param,trajectory)
 %% Plot Robot Configurations
-figure
 init = zeros(param.numBodies,1);
 show(robot,init);
 view(2)
@@ -8,7 +7,7 @@ ax = gca;
 ax.View = [45 45];
 ax.Projection = 'perspective';
 hold on
-framesPerSecond = 10;
+framesPerSecond = 20;
 r = rateControl(framesPerSecond);
 %% Initialize video
 n = size(opt_jointAngles);

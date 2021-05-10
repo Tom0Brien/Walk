@@ -33,6 +33,7 @@ trajectory_3 = generateFootTrajectory(param,isHalfStep);
 [opt_joint_angles_3] = inverseKinematics(robot,trajectory_3,param);
 %% Plot Walking
 % Plot first step
+figure
 param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
 plotWalk(opt_joint_angles_1,robot,param,trajectory_1);
