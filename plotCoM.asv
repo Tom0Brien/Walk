@@ -1,0 +1,34 @@
+function output = plotCoM(joint_angles,param)
+close all;
+%% Helper Functions
+position = @(transform) transform(1:3,4);
+%% Plot Robot Configurations
+figure(1);
+robot = param.robot;
+framesPerSecond = 2;
+r = rateControl(framesPerSecond);
+%% Initialize video
+n = size(joint_angles);
+center = zeros(3,n(2));
+foot = zeros(3,n(2));
+for i = 1:n(2)
+    center(:,i) = centerOfMass(robot,joint_angles(:,i));
+    Htf(:,i) = position(getTransform(robot,joint_angles(:,i),param.supportFoot));
+    [x,y,z] = sphere;
+    x = x*0.05;
+    y = y*0.05;
+    z = z*0.05;
+    surf(x+center(1,i),y+center(2,i),z+center(3,i))
+    hold on
+    plot3(foot(1,i),foot(2,i),foot(3,i),'o');
+    plot3(foot(1,i),foot(2,i),foot(3,i),'o');
+    plot3(foot(1,i),foot(2,i),foot(3,i),'o');
+    plot3(foot(1,i),foot(2,i),foot(3,i),'o');
+    hold off
+    axis([-0.5 0.5 -0.5 0.5 -1 1]);
+    
+    drawnow
+    waitfor(r);
+end
+end
+
