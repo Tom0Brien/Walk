@@ -44,4 +44,4 @@ param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
 plot3DRobot(opt_joint_angles_3,robot,param,trajectory_3);
 %% Pack servo positions
-servo_positions = [opt_joint_angles_1,opt_joint_angles_2,opt_joint_angles_3,opt_joint_angles_2,opt_joint_angles_3,opt_joint_angles_2,opt_joint_angles_3];
+servo_positions = [opt_joint_angles_1,opt_joint_angles_2,opt_joint_angles_3];
