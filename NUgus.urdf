@@ -276,36 +276,36 @@
   <link name="right_hip_yaw">
     <inertial>
       <mass value="0.067"/>
-      <origin rpy="0  0  0" xyz="-0.00218 -0.04605 -0.02475"/>
+      <origin rpy="0  0  1.571" xyz="-0.00218 -0.04605 -0.02475"/>
       <inertia ixx="0.000882290820872" ixy="1.67744972811e-06" ixz="-7.82340516059e-06" iyy="0.0017446691852" iyz="-2.5331607648e-05" izz="0.00199696722705"/>
     </inertial>
     <collision name="right_hip_yaw_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0  0  1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_hip_yaw.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="right_hip_yaw_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0  0  1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_hip_yaw.stl" scale="1 1 1"/>
       </geometry>
-    </visual>
+    </visual> 
   </link>
   <link name="left_hip_yaw">
     <inertial>
       <mass value="0.067"/>
-      <origin rpy="0  0  0" xyz="-0.00218  0.04605 -0.02475"/>
+      <origin rpy="0  0  1.571" xyz="-0.00218  0.04605 -0.02475"/>
       <inertia ixx="0.000882226060809" ixy="-1.70552313911e-06" ixz="-7.85442766165e-06" iyy="0.00174462757152" iyz="2.53317940902e-05" izz="0.00199699030659"/>
     </inertial>
     <collision name="left_hip_yaw_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0  0  1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_hip_yaw.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="left_hip_yaw_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0  0  1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_hip_yaw.stl" scale="1 1 1"/>
       </geometry>
@@ -314,17 +314,17 @@
   <link name="right_hip_roll">
     <inertial>
       <mass value="0.306"/>
-      <origin rpy="0  0  0" xyz="1.57300000e-02  -3.00000000e-05  -2.07100000e-02"/>
+      <origin rpy="-1.571 0 1.571" xyz="1.57300000e-02  -3.00000000e-05  -2.07100000e-02"/>
       <inertia ixx="0.00011792969792" ixy="3.75077766164e-06" ixz="-3.76239396173e-06" iyy="0.000216752921659" iyz="-1.04719102357e-06" izz="0.00026193571108"/>
     </inertial>
     <collision name="right_hip_roll_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_hip_roll.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="right_hip_roll_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_hip_roll.stl" scale="1 1 1"/>
       </geometry>
@@ -333,17 +333,17 @@
   <link name="left_hip_roll">
     <inertial>
       <mass value="0.306"/>
-      <origin rpy="0  0  0" xyz="1.57300000e-02   3.00000000e-05  -2.07100000e-02"/>
+      <origin rpy="-1.571 0 1.571" xyz="1.57300000e-02   3.00000000e-05  -2.07100000e-02"/>
       <inertia ixx="0.00011792969792" ixy="3.75077766164e-06" ixz="-3.76239396173e-06" iyy="0.000216752921659" iyz="-1.04719102357e-06" izz="0.00026193571108"/>
     </inertial>
     <collision name="left_hip_roll_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_hip_roll.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="left_hip_roll_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_hip_roll.stl" scale="1 1 1"/>
       </geometry>
@@ -352,17 +352,17 @@
   <link name="right_upper_leg">
     <inertial>
       <mass value="0.387"/>
-      <origin rpy="0  0  0" xyz="0 0 -0.1"/>
+      <origin rpy="0 -1.571 0" xyz="0 0 0"/>
       <inertia ixx="0.000696700519632" ixy="-9.53476806421e-06" ixz="-0.000470624649862" iyy="0.00239278787906" iyz="1.16876636437e-07" izz="0.00205692152569"/>
     </inertial>
     <collision name="right_upper_leg_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="mesh/right_upper_leg.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="right_upper_leg_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="-0.01 -0.01 0"/>
       <geometry>
         <mesh filename="mesh/right_upper_leg.stl" scale="1 1 1"/>
       </geometry>
@@ -371,17 +371,17 @@
   <link name="left_upper_leg">
     <inertial>
       <mass value="0.387"/>
-      <origin rpy="0  0  0" xyz="0 0 -0.1"/>
+      <origin rpy="0 -1.571 0" xyz="0 0 0"/>
       <inertia ixx="0.000696700519632" ixy="9.53476806421e-06" ixz="-0.000470624649862" iyy="0.00239278787906" iyz="-1.16876636437e-07" izz="0.00205692152569"/>
     </inertial>
     <collision name="left_upper_leg_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="mesh/left_upper_leg.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="left_upper_leg_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="-0.01 -0.01 0"/>
       <geometry>
         <mesh filename="mesh/left_upper_leg.stl" scale="1 1 1"/>
       </geometry>
@@ -390,17 +390,17 @@
   <link name="right_lower_leg">
     <inertial>
       <mass value="0.177"/>
-      <origin rpy="0  0  0" xyz="0 0 -0.1"/>
+      <origin rpy="0 -1.571 0" xyz="0 0 -0.1"/>
       <inertia ixx="0.000262985314881" ixy="-8.38322526059e-06" ixz="0.000263433998983" iyy="0.00158709194955" iyz="-6.90920077416e-07" izz="0.00141772095062"/>
     </inertial>
     <collision name="right_lower_leg_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_lower_leg.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="right_lower_leg_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_lower_leg.stl" scale="1 1 1"/>
       </geometry>
@@ -409,17 +409,17 @@
   <link name="left_lower_leg">
     <inertial>
       <mass value="0.177"/>
-      <origin rpy="0  0  0" xyz="0 0 -0.1"/>
+      <origin rpy="0 -1.571 0" xyz="0 0 -0.1"/>
       <inertia ixx="0.000262985314881" ixy="8.38322526059e-06" ixz="0.000263433998983" iyy="0.00158709194955" iyz="6.90920077416e-07" izz="0.00141772095062"/>
     </inertial>
     <collision name="left_lower_leg_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_lower_leg.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="left_lower_leg_visual">
-      <origin rpy="0  0 1.57079" xyz="0  0  0"/>
+      <origin rpy="0 -1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_lower_leg.stl" scale="1 1 1"/>
       </geometry>
@@ -428,17 +428,17 @@
   <link name="right_ankle">
     <inertial>
       <mass value="0.306"/>
-      <origin rpy="0  0  0" xyz="-0.01573  0.00051 -0.02197"/>
+      <origin rpy="0 1.571 0" xyz="-0.01573  0.00051 -0.02197"/>
       <inertia ixx="0.00011792969792" ixy="3.75077766164e-06" ixz="3.76239396173e-06" iyy="0.000216752921659" iyz="1.04719102357e-06" izz="0.00026193571108"/>
     </inertial>
     <collision name="right_ankle_collision">
-      <origin rpy="0  3.14159  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_ankle.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="right_ankle_visual">
-      <origin rpy="0  3.14159  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/right_ankle.stl" scale="1 1 1"/>
       </geometry>
@@ -447,17 +447,17 @@
   <link name="left_ankle">
     <inertial>
       <mass value="0.306"/>
-      <origin rpy="0  0  0" xyz="-0.01573  0.00051 -0.02197"/>
+      <origin rpy="0 1.571 0" xyz="-0.01573  0.00051 -0.02197"/>
       <inertia ixx="0.00011792969792" ixy="-3.75077766164e-06" ixz="3.76239396173e-06" iyy="0.000216752921659" iyz="-1.04719102357e-06" izz="0.00026193571108"/>
     </inertial>
     <collision name="left_ankle_collision">
-      <origin rpy="0 3.14159  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_ankle.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="left_ankle_visual">
-      <origin rpy="0 3.14159  1.57079" xyz="0  0  0"/>
+      <origin rpy="0 1.571 0" xyz="0  0  0"/>
       <geometry>
         <mesh filename="mesh/left_ankle.stl" scale="1 1 1"/>
       </geometry>
@@ -466,17 +466,17 @@
   <link name="right_foot">
     <inertial>
       <mass value="0.205"/>
-      <origin rpy="0  0  0" xyz="0.0308   0.00877  0.01129"/>
+      <origin rpy="-1.571 0 1.571" xyz="0.0308   0.00877  0.01129"/>
       <inertia ixx="0.000469227615567" ixy="1.23728985389e-05" ixz="5.16561744473e-06" iyy="0.0010836186025" iyz="-1.75941501866e-06" izz="0.00139011775571"/>
     </inertial>
     <collision name="right_foot_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="-0.01 0 -0.04"/>
       <geometry>
         <mesh filename="mesh/right_foot.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="right_foot_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="-0.01 0 -0.04"/>
       <geometry>
         <mesh filename="mesh/right_foot.stl" scale="1 1 1"/>
       </geometry>
@@ -485,17 +485,17 @@
   <link name="left_foot">
     <inertial>
       <mass value="0.205"/>
-      <origin rpy="0  0  0" xyz="0.0308   0.00877  0.01129"/>
+      <origin rpy="-1.571 0 1.571" xyz="0.0308   0.00877  0.01129"/>
       <inertia ixx="0.000469227615567" ixy="-1.23728985389e-05" ixz="5.16561744473e-06" iyy="0.0010836186025" iyz="1.75941501866e-06" izz="0.00139011775571"/>
     </inertial>
     <collision name="left_foot_collision">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="-0.01 0 -0.04"/>
       <geometry>
         <mesh filename="mesh/left_foot.stl" scale="1 1 1"/>
       </geometry>
     </collision>
     <visual name="left_foot_visual">
-      <origin rpy="0  0  1.57079" xyz="0  0  0"/>
+      <origin rpy="-1.571 0 1.571" xyz="-0.01 0 -0.04"/>
       <geometry>
         <mesh filename="mesh/left_foot.stl" scale="1 1 1"/>
       </geometry>

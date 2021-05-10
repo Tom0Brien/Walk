@@ -4,6 +4,8 @@ close all;
 %% Forward kinematics
 robot = importrobot('NUgus.urdf');
 robot.DataFormat = 'column';
+close all;
+show(robot);
 %% Params
 param = gaitParameters(robot);
 %% Trajectory Plan Half Step

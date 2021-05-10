@@ -59,10 +59,10 @@ output = output + xe(kinematics3D(param.initialConditions,param));
 show(param.robot,param.initialConditions);
 hold on;
 transform = @(kinematics) kinematics.T0L;
-Htf = transform(kinematics3D(param.initialConditions,param));
+Hft = getTransform(param.robot,param.initialConditions,param.supportFoot,'torso');
 trajectory = zeros(4,param.numSamples);
 for i=1:param.numSamples
-    trajectory(:,i) = Htf*[output(:,i);1];
+    trajectory(:,i) = Hft*[output(:,i);1];
 end
 plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
 end

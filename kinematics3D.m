@@ -1,7 +1,7 @@
 function output = kinematics3D(q_in,param)
 %% Map urdf joint angles to kinematics
 q = [q_in(12),q_in(13),q_in(14),q_in(15),q_in(16),q_in(17),q_in(1),q_in(2),q_in(3),q_in(4),q_in(5),q_in(6)];
-%% Carnogical stuff
+
 rotx = @(phi) [1,0,0,0;...
              0,cos(phi),-sin(phi),0;...
              0,sin(phi),cos(phi),0;...
@@ -63,10 +63,12 @@ output.T0R = A01*A12(q(1))*A23(q(2))*A34(q(3))*A45(q(4))*A56(q(5))*A6R(q(6));
 output.T0L = A07*A78(q(7))*A89(q(8))*A910(q(9))*A1011(q(10))*A1112(q(11))*A12L(q(12));
 if(param.supportFoot == "left_foot")
     output.T = output.T0L\output.T0R;
+    disp(output.T);
     output.xe = output.T(1:3,4);
     output.R = output.T(1:3,1:3);
 else
     output.T = output.T0R\output.T0L;
+    disp(output.T);
     output.xe = output.T(1:3,4);
     output.R = output.T(1:3,1:3);
 end
