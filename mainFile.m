@@ -6,6 +6,9 @@ robot = importrobot('NUgus.urdf');
 robot.DataFormat = 'column';
 close all;
 show(robot);
+com = centerOfMass(robot,homeConfiguration(robot));
+hold on;
+plot3(com(1),com(2),com(3),'o');
 %% Params
 param = gaitParameters(robot);
 %% Trajectory Plan Half Step

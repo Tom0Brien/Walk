@@ -1,8 +1,9 @@
 function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
     %% Helper functions
     Hft = @(kinematics) inv(kinematics.Htf);
+    com = @(kinematics) kinematics.com;
     %% Convert centerOfMass into foot space
-    rCTt = [centerOfMass(robot,joint_angles);1];
+    rCTt = [com(kinematics3D(joint_angles,param));1];
     rCFf = Hft(kinematics3D(joint_angles,param))*rCTt; %CoM to foot space
     
     %% Constraints
