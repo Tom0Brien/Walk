@@ -84,14 +84,14 @@ CR2 = A01*A12*(rotz(q(2))*rotx(-pi/2)*tranx(com_hip_pitch));
 CR3 = A01*A12*A23*(rotz(q(3))*tranx(com_upper_leg));
 CR4 = A01*A12*A23*A34*(rotz(q(4))*tranx(com_lower_leg));
 CR5 = A01*A12*A23*A34*A45*(rotz(q(5))*rotx(pi/2)*tranx(com_ankle));
-CR6 = A01*A12*A23*A34*A45*A56*(rotz(q(6)));
+CR6 = A01*A12*A23*A34*A45*A56*(rotz(q(6))*tranx(com_foot));
 %left leg com
 CL1 = A07*(rotz(q(7))*roty(pi/2)*tranx(com_hip_roll));
 CL2 = A07*A78*(rotz(q(8))*rotx(-pi/2)*tranx(com_hip_pitch));
 CL3 = A07*A78*A89*(rotz(q(9))*tranx(com_upper_leg));
 CL4 = A07*A78*A89*A910*(rotz(q(10))*tranx(com_lower_leg));
 CL5 = A07*A78*A89*A910*A1011*(rotz(q(11))*rotx(pi/2)*tranx(com_ankle));
-CL6 = A07*A78*A89*A910*A1011*A1112*(rotz(q(12)));
+CL6 = A07*A78*A89*A910*A1011*A1112*(rotz(q(12))*tranx(com_foot));
 %torso and upper body com
 CT = tranz(com_upper_body);
 
