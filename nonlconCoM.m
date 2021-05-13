@@ -7,8 +7,8 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
     rCFf = Hft*rCTt; %CoM to foot space
     %% Constraints
     c =[
-        rCFf(1)-0.115;...  %CoMx <= 0.115
-        -rCFf(1)-0.115;... %CoMx >= -0.115
+        rCFf(1)-0.5;...  %CoMx <= 0.115
+        -rCFf(1)-0.5;... %CoMx >= -0.115
         rCFf(2)-0.065;...  %CoMy <= 0.065
         -rCFf(2)-0.065;... %CoMx <= -0.065
         %Ensure knees are bent backwards
@@ -29,7 +29,7 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
         norm(joint_angles(15) - joints0(4)) - 1;
         norm(joint_angles(16) - joints0(5)) - 1;
         norm(joint_angles(17) - joints0(6)) - 1;
-%         norm(position(getTransform(robot,param.initialConditions,param.swingFoot,param.supportFoot)) - position(getTransform(robot,joint_angles,param.swingFoot,param.supportFoot)));
+        norm(position(getTransform(robot,param.initialConditions,param.swingFoot,param.supportFoot)) - position(getTransform(robot,joint_angles,param.swingFoot,param.supportFoot))) - 0.01;
        ];
    ceq =[
          %Keep upper body rigid
