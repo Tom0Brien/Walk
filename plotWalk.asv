@@ -1,6 +1,4 @@
-function output = plotWalk(opt_jointAngles,robot,param)
-%% Helper
-CoM = @(kinematics) kinematics.com;
+function output = plotWalk(opt_jointAngles,robot,param,trajectory)
 %% Plot Robot Configurations
 init = zeros(param.numBodies,1);
 show(robot,init);
@@ -9,16 +7,13 @@ ax = gca;
 ax.View = [45 45];
 ax.Projection = 'perspective';
 hold on
-framesPerSecond = 60;
+framesPerSecond = 20;
 r = rateControl(framesPerSecond);
 %% Initialize video
-n = size(opt_jointAngles,2)
-center = zeros(3,n);
-for i = 1:n
+n = size(opt_jointAngles);
+for i = 1:n(2)
     show(robot,opt_jointAngles(:,i),'PreservePlot',false);
-    center(:,i) = CoM(kinematics3D(opt_jointAngles(:,i),param));
-    hold on;
-    plot3(center(1,i),center(2,i),center(3,i),'o');
+    center(:,
     X = [-1 1 1 -1];
     Y = [1 1 -1 -1];
     Z = [-0.5 -0.5 -0.5 -0.5];

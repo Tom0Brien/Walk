@@ -54,7 +54,12 @@ v = [v C2*D*tt];
 output = [-z;zeros(1,param.numSamples);x];
 % Shift initial point to swing foot
 xe = @(kinematics) kinematics.xe;
-output = output + xe(kinematics3D(param.initialConditions,param));
+if param.supportFoot == "left_foot"
+    y = -0.15;
+else
+    y =  0.15;
+end
+output = output + [1,0,1]*xe(kinematics3D(param.initialConditions,param))+[0;y;0];
 %% Plot trajectory in torso space
 show(param.robot,param.initialConditions);
 hold on;

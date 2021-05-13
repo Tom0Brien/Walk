@@ -42,15 +42,15 @@ trajectory_3 = generateFootTrajectory(param,isHalfStep);
 figure
 param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
-plotWalk(opt_joint_angles_1,robot,param,trajectory_1);
+plotWalk(opt_joint_angles_1,robot,param);
 % Plot 2nd step
 param.supportFoot = 'right_foot';
 param.swingFoot = 'left_foot';
-plotWalk(opt_joint_angles_2,robot,param,trajectory_2);
+plotWalk(opt_joint_angles_2,robot,param);
 % Plot 3rd step
 param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
-plotWalk(opt_joint_angles_3,robot,param,trajectory_3);
+plotWalk(opt_joint_angles_3,robot,param);
 %% Plot Data
 % Plot first step
 param.supportFoot = 'left_foot';
@@ -65,6 +65,8 @@ param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
 plotData(opt_joint_angles_3,robot,param,trajectory_3);
 %% Plot CoM
+param.supportFoot = 'left_foot';
+param.swingFoot = 'right_foot';
 plotCoM(opt_joint_angles_1,param);
 param.supportFoot = 'right_foot';
 param.swingFoot = 'left_foot';

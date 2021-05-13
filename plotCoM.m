@@ -1,6 +1,12 @@
 function output = plotCoM(joint_angles,param)
 %% Helper Functions
 position = @(transform) transform(1:3,4);
+Ry = @(theta)[cos(theta), 0,sin(theta),0; ...
+              0,1,0,0; ...
+              -sin(theta), 0, cos(theta),0;...
+              0,0,0,1
+              ];
+Hft = @(kinematics) inv(kinematics.Htf);
 %% Plot Robot Configurations
 figure(1);
 robot = param.robot;
@@ -11,14 +17,15 @@ n = size(joint_angles);
 center = zeros(4,n(2));
 foot = zeros(3,n(2));
 for i = 1:n(2)
-    center(:,i) = [centerOfMass(robot,joint_angles(:,i));1];
-    Hft = getTransform(robot,joint_angles(:,i),'torso',param.supportFoot);
-    center(:,i) = Hft*center(:,i);
+    center(:,i) = [centerOfMass(robot,joint_angles(:,i));1]
+    Hft_ = Hft(kinematics3D(joint_angles(:,i),param));
+    center(:,i) = Hft_*center(:,i);
+    %rotate to plot based coordinate system.
     [x,y,z] = sphere;
-    x = x*0.025;
-    y = y*0.025;
-    z = z*0.025;
-    surf(x+center(1,i),y+center(2,i),z+center(3,i));
+    x = x*0.02;
+    y = y*0.02;
+    z = z*0.02;
+    surf(x+center(3,i),y+center(2,i),z-center(1,i));
     hold on
     X = [0 0 0 0 0 1; 1 0 1 1 1 1; 1 0 1 1 1 1; 0 0 0 0 0 1];
     Y = [0 0 0 0 1 0; 0 1 0 0 1 1; 0 1 1 1 1 1; 0 0 1 1 1 0];

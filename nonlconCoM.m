@@ -17,18 +17,18 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
         joint_angles(4) - pi/2;
         -joint_angles(4);
         %Ensure next solution is within 0.75 rads of previous
-        norm(joint_angles(1) - joints0(1)) - 1;
-        norm(joint_angles(2) - joints0(2)) - 1;
-        norm(joint_angles(3) - joints0(3)) - 1;
-        norm(joint_angles(4) - joints0(4)) - 1;
-        norm(joint_angles(5) - joints0(5)) - 1;
-        norm(joint_angles(6) - joints0(6)) - 1;
-        norm(joint_angles(12) - joints0(1)) - 1;
-        norm(joint_angles(13) - joints0(2)) - 1;
-        norm(joint_angles(14) - joints0(3)) - 1;
-        norm(joint_angles(15) - joints0(4)) - 1;
-        norm(joint_angles(16) - joints0(5)) - 1;
-        norm(joint_angles(17) - joints0(6)) - 1;
+        norm(joint_angles(1) - joints0(1)) - 0.5;
+        norm(joint_angles(2) - joints0(2)) - 0.5;
+        norm(joint_angles(3) - joints0(3)) - 0.5;
+        norm(joint_angles(4) - joints0(4)) - 0.5;
+        norm(joint_angles(5) - joints0(5)) - 0.5;
+        norm(joint_angles(6) - joints0(6)) - 0.5;
+        norm(joint_angles(12) - joints0(1)) - 0.5;
+        norm(joint_angles(13) - joints0(2)) - 0.5;
+        norm(joint_angles(14) - joints0(3)) - 0.5;
+        norm(joint_angles(15) - joints0(4)) - 0.5;
+        norm(joint_angles(16) - joints0(5)) - 0.5;
+        norm(joint_angles(17) - joints0(6)) - 0.5;
         norm(position(getTransform(robot,param.initialConditions,param.swingFoot,param.supportFoot)) - position(getTransform(robot,joint_angles,param.swingFoot,param.supportFoot))) - 0.01;
        ];
    ceq =[

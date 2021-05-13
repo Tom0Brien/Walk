@@ -54,15 +54,16 @@ v = [v C2*D*tt];
 output = [-z;zeros(1,param.numSamples);x];
 % Shift initial point to swing foot
 xe = @(kinematics) kinematics.xe;
-output = output + xe(kinematics3D(param.initialConditions,param));
+if param.supportFoot 
+output = output + xe(kinematics3D(param.initialConditions,param))+;
 %% Plot trajectory in torso space
 show(param.robot,param.initialConditions);
 hold on;
-transform = @(kinematics) kinematics.T;
-Htf = transform(kinematics3D(param.initialConditions,param));
+transform = @(kinematics) kinematics.T0L;
+Hft = getTransform(param.robot,param.initialConditions,param.supportFoot,'torso');
 trajectory = zeros(4,param.numSamples);
 for i=1:param.numSamples
-    trajectory(:,i) = Htf*[output(:,i);1];
+    trajectory(:,i) = Hft*[output(:,i);1];
 end
 plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
 end
