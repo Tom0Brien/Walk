@@ -56,7 +56,7 @@ function [c,ceq] = nonlconFoot(joint_angles,robot,param,joints0)
          joint_angles(19);
          joint_angles(20);
          joint_angles(11);
-%          joint_angles(10);
+         joint_angles(10);
          %Keep support foot hip rigid
          hip;
          0;
