@@ -3,10 +3,11 @@ clear;
 close all;
 %% Forward kinematics
 robot = importrobot('NUgus.urdf');
+% smimport('NUgus.urdf')
 robot.DataFormat = 'column';
 close all;
 show(robot);
-com = centerOfMass(robot,homeConfiguration(robot));
+com = centerOfMass(robot,homeConfiguration(robot))
 hold on;
 plot3(com(1),com(2),com(3),'o');
 %% Params

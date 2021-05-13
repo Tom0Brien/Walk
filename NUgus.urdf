@@ -142,8 +142,8 @@
   </joint>
   <link name="torso">
     <inertial>
-      <mass value="4.2530"/>
-      <origin rpy="0  0  0" xyz="0 0 0.2"/>
+      <mass value="0"/>
+      <origin rpy="0  0  1.571" xyz="0 0 0.15"/>
       <inertia ixx="0.0166572872071" ixy="0.00154518589069" ixz="0.00493865774288" iyy="0.00422523541751" iyz="0.00120275338963" izz="0.0555077839106"/>
     </inertial>
     <collision name="torso_collision">
@@ -219,7 +219,7 @@
   <link name="left_upper_arm">
     <inertial>
       <mass value="0"/>
-      <origin rpy="0  0  0" xyz="-0.00047  0.00048 -0.04785"/>
+      <origin rpy="0  0  0" xyz="0 0 0"/>
       <inertia ixx="0.00244090259623" ixy="-3.67136912481e-06" ixz="-0.000138914522851" iyy="0.0022838340537" iyz="-1.97953337853e-05" izz="0.000536693721409"/>
     </inertial>
     <collision name="left_upper_arm_collision">
@@ -522,8 +522,8 @@
   </link>
   <link name="head">
     <inertial>
-      <mass value="0"/>
-      <origin rpy="0  0  0" xyz="-0.05482 -0.0001   0.00117"/>
+      <mass value="4.2530"/>
+      <origin rpy="0  0  0" xyz="0 0 -0.11"/>
       <inertia ixx="0.00522954263224" ixy="8.06868913029e-07" ixz="-7.85419377514e-05" iyy="0.00427382206022" iyz="2.26332170851e-07" izz="0.00333363205267"/>
     </inertial>
     <collision name="head_collision">
