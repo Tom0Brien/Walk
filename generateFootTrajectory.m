@@ -7,8 +7,6 @@ if isHalfStep == true
 else
    stepLength = param.stepLength;
 end
-%% Initial Position
-init = position(getTransform(param.robot,param.initialConditions,param.swingFoot,param.supportFoot));
 %% Generate spline trajectoy for swing foot to follow - X
 D = diag(1:3,-1);
 X0 = [0 0];
@@ -33,7 +31,7 @@ tt0 = t0.^(0:3).';
 T0 = [tt0,D*tt0];
 %apex of swing foot trajectory z = 0.15, velocity = 0;
 Z1 = [param.stepHeight 0];
-t1 = param.stepTime/2;
+t1 = param.stepTime/4;
 tt1 = t1.^(0:3).';
 T1 = [tt1,D*tt1];
 %back down to ground
@@ -55,19 +53,18 @@ output = [-z;zeros(1,param.numSamples);x];
 % Shift initial point to swing foot
 xe = @(kinematics) kinematics.xe;
 if param.supportFoot == "left_foot"
-    y = -0.15;
+    y = -param.stepWidth;
 else
-    y =  0.15;
+    y =  param.stepWidth;
 end
-output = output + [1,0,1]*xe(kinematics3D(param.initialConditions,param))+[0;y;0];
+output = output + [1 0 0;0 0 0;0 0 1]*xe(kinematics3D(param.initialConditions,param))+[0;y;0];
 %% Plot trajectory in torso space
 show(param.robot,param.initialConditions);
 hold on;
-transform = @(kinematics) kinematics.T0L;
-Hft = getTransform(param.robot,param.initialConditions,param.supportFoot,'torso');
+Htf = @(kinematics) kinematics.Htf;
 trajectory = zeros(4,param.numSamples);
 for i=1:param.numSamples
-    trajectory(:,i) = Hft*[output(:,i);1];
+    trajectory(:,i) = Htf(kinematics3D(param.initialConditions,param))*[output(:,i);1];
 end
 plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
 end

@@ -8,9 +8,9 @@ Ry = @(theta)[cos(theta), 0,sin(theta),0; ...
               ];
 Hft = @(kinematics) inv(kinematics.Htf);
 %% Plot Robot Configurations
-figure(1);
+figure
 robot = param.robot;
-framesPerSecond = 10;
+framesPerSecond = 30;
 r = rateControl(framesPerSecond);
 %% Initialize video
 n = size(joint_angles);

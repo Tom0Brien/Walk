@@ -9,7 +9,7 @@ ax = gca;
 ax.View = [45 45];
 ax.Projection = 'perspective';
 hold on
-framesPerSecond = 60;
+framesPerSecond = 30;
 r = rateControl(framesPerSecond);
 %% Initialize video
 n = size(opt_jointAngles,2)
@@ -22,7 +22,15 @@ for i = 1:n
     X = [-1 1 1 -1];
     Y = [1 1 -1 -1];
     Z = [-0.5 -0.5 -0.5 -0.5];
-    fill3(X,Y,Z,[211,211,211]/1000);
+    fill3(X,Y,Z,[153,160,168]/256);
+    X = [-0.5 -0.5 -0.5 -0.5];
+    Y = [-0.5 -0.5 0.5 0.5];
+    Z = [-0.5 0.5 0.5 -0.5];
+    fill3(X,Y,Z,[153,160,168]/256);
+    X = [-0.5 -0.5 0.5 0.5];
+    Y = [0.5 0.5 0.5 0.5];
+    Z = [-0.5 0.5 0.5 -0.5];
+    fill3(X,Y,Z,[153,160,168]/256);
     axis([-0.5 0.5 -0.5 0.5 -0.5 0.5]);
     drawnow
     waitfor(r);
