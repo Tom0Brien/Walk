@@ -17,8 +17,8 @@ function [c,ceq] = nonlconFoot(joint_angles,param,joints0)
         joint_angles(4) - pi/2;
         -joint_angles(4);
         % Ensure support doesnt shift backwards to far
-%          -rTPt(1) - 0.15;
-         rTPt(3) + 0.42; % rTPt(3) <= -0.4
+         -rTPt(1) - 0.15;
+         -xs(1) - 0.15;r
        ];
     ceq = [];
 end

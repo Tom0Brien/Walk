@@ -7,7 +7,7 @@ robot = importrobot('NUgus.urdf');
 robot.DataFormat = 'column';
 close all;
 show(robot);
-com = centerOfMass(robot,homeConfiguration(robot))
+com = centerOfMass(robot,homeConfiguration(robot));
 hold on;
 plot3(com(1),com(2),com(3),'o');
 %% Params
@@ -65,14 +65,14 @@ param.supportFoot = 'left_foot';
 param.swingFoot = 'right_foot';
 plotData(opt_joint_angles_3,param,trajectory_3);
 %% Plot CoM
-param.supportFoot = 'left_foot';
-param.swingFoot = 'right_foot';
-plotCoM(opt_joint_angles_1,param);
-param.supportFoot = 'right_foot';
-param.swingFoot = 'left_foot';
-plotCoM(opt_joint_angles_2,param);
-param.supportFoot = 'left_foot';
-param.swingFoot = 'right_foot';
-plotCoM(opt_joint_angles_3,param);
+% param.supportFoot = 'left_foot';
+% param.swingFoot = 'right_foot';
+% plotCoM(opt_joint_angles_1,param);
+% param.supportFoot = 'right_foot';
+% param.swingFoot = 'left_foot';
+% plotCoM(opt_joint_angles_2,param);
+% param.supportFoot = 'left_foot';
+% param.swingFoot = 'right_foot';
+% plotCoM(opt_joint_angles_3,param);
 %% Pack servo positions
 servo_positions = [opt_joint_angles_1,opt_joint_angles_2,opt_joint_angles_3];
