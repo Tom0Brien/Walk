@@ -120,12 +120,18 @@ if(param.supportFoot == "left_foot")
     output.xe = output.T(1:3,4);
     output.R = output.T(1:3,1:3);
     output.Htf = output.T0L;
+    output.orientation = [atan2(output.T(3,2),output.T(3,3));
+                          atan2(-output.T(3,1),sqrt(output.T(3,2)^2+output.T(3,3)^2));
+                          atan2(output.T(2,1),output.T(1,1))];
     output.xs = output.T0L(1:3,4);
 else
     output.T = output.T0R\output.T0L;
     output.xe = output.T(1:3,4);
     output.R = output.T(1:3,1:3);
     output.Htf = output.T0R;
+    output.orientation = [atan2(output.T(3,2),output.T(3,3));
+                      atan2(-output.T(3,1),sqrt(output.T(3,2)^2+output.T(3,3)^2));
+                      atan2(output.T(2,1),output.T(1,1))];
     output.xs = output.T0R(1:3,4);
 end
 
