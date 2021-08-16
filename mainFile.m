@@ -1,6 +1,7 @@
 clc;
 clear;
 close all;
+addpath('./transforms');
 %% Forward kinematics
 robot = importrobot('NUgus.urdf');
 % smimport('NUgus.urdf')

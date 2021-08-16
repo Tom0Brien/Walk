@@ -1,27 +1,6 @@
 function output = kinematics3D(q_in,param)
 %% Map urdf joint angles to kinematics
 q = [q_in(12),q_in(13),q_in(14),q_in(15),q_in(16),q_in(17),q_in(1),q_in(2),q_in(3),q_in(4),q_in(5),q_in(6)];
-
-rotx = @(phi) [1,0,0,0;...
-             0,cos(phi),-sin(phi),0;...
-             0,sin(phi),cos(phi),0;...
-             0,0,0,1;
-            ];
-roty = @(theta)[cos(theta), 0,sin(theta),0; ...
-              0,1,0,0; ...
-              -sin(theta), 0, cos(theta),0;...
-              0,0,0,1
-              ];
-
-rotz = @(psi)[cos(psi) -sin(psi) 0 0;...
-            sin(psi) cos(psi) 0 0;...
-            0 0 1 0;...
-            0 0 0 1
-           ];
-       
-tranx = @(x) [[eye(3);zeros(1,3)],[x;0;0;1]];
-trany = @(y) [[eye(3);zeros(1,3)],[0;y;0;1]];
-tranz = @(z) [[eye(3);zeros(1,3)],[0;0;z;1]];
 %% Params
 hip_yaw = 0.055;
 hip_roll = 0.06;
@@ -50,6 +29,7 @@ total_mass = m_yaw*2 + m_roll*2 + m_u_leg*2 + m_l_leg*2 + m_ankle*2 + m_foot*2 +
 
 %% Homogeneous Transforms Trunk Based Coordinates
 %right_hip_yaw
+
 A01 = trany(-hip_yaw);
 %right_hip_roll
 A12 = rotz(q(1))*roty(pi/2)*tranx(hip_roll);
