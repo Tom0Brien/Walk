@@ -2,6 +2,7 @@ clc;
 clear;
 close all;
 addpath('./transforms');
+addpath('./ZMP');
 %% Forward kinematics
 robot = importrobot('NUgus.urdf');
 % smimport('NUgus.urdf')
@@ -14,30 +15,39 @@ plot3(com(1),com(2),com(3),'o');
 %% Params
 param = gaitParameters(robot);
 %% Trajectory Plan Half Step
-param.initial_conditions = initialConditions;
 param.support_foot = 'left_foot';
 param.swingFoot = 'right_foot';
 % param.initial_conditions = opt_joint_angles_1(:,end);
 is_half_step = true;
-trajectory_1 = generateFootTrajectory(param,is_half_step);
+param.stepCount = 1;
+foot_traj_1 = generateFootTrajectory(param,is_half_step);
+[com_x, com_y, zmp_x, zmp_y] = generateCoMTraj(param);
+param.com_x = com_x;
+param.com_y = com_y;
+param.zmp_x = zmp_x;
+param.zmp_y = zmp_y;
+rCdWw = [com_x(1:param.N_samples);com_y(1:param.N_samples);zeros(1,param.N_samples)];
 %% Inverse Kinematics - Half Step - support foot -> left
-[opt_joint_angles_1] = inverseKinematics(trajectory_1,param);
+[opt_joint_angles_1] = inverseKinematicsZMP(param,foot_traj_1,rCdWw);
 %% Trajectory Plan Full Step
 param.support_foot = 'right_foot';
 param.swingFoot = 'left_foot';
 is_half_step = false;
+param.stepCount = 2;
 param.initial_conditions = opt_joint_angles_1(:,end);
-trajectory_2 = generateFootTrajectory(param,is_half_step);
-%% Inverse Kinematics - Half Step - support foot -> left
-[opt_joint_angles_2] = inverseKinematics(trajectory_2,param);
+foot_traj_2 = generateFootTrajectory(param,is_half_step);
+rCdWw = [com_x(param.N_samples+1:param.N_samples*2);com_y(param.N_samples+1:param.N_samples*2);zeros(1,param.N_samples)];
+%% Inverse Kinematics - Full Step - support foot -> left
+[opt_joint_angles_2] = inverseKinematicsZMP(param,foot_traj_2,rCdWw);
 %% Trajectory Plan Full Step
 param.support_foot = 'left_foot';
 param.swingFoot = 'right_foot';
 is_half_step = false;
+param.stepCount = 3;
 param.initial_conditions = opt_joint_angles_2(:,end);
-trajectory_3 = generateFootTrajectory(param,is_half_step);
-%% Inverse Kinematics - Half Step - support foot -> left
-[opt_joint_angles_3] = inverseKinematics(trajectory_3,param);
+foot_traj_3 = generateFootTrajectory(param,is_half_step);
+%% Inverse Kinematics - Full Step - support foot -> left
+[opt_joint_angles_3] = inverseKinematicsZMP(param,foot_traj_3,rCdWw);
 %% Plot Walking
 % Plot first step
 figure
@@ -56,25 +66,19 @@ plotWalk(opt_joint_angles_3,robot,param);
 % Plot first step
 param.support_foot = 'left_foot';
 param.swingFoot = 'right_foot';
-plotData(opt_joint_angles_1,param,trajectory_1);
+rCTt1 = plotData(opt_joint_angles_1,param,foot_traj_1);
 % Plot 2nd step
 param.support_foot = 'right_foot';
 param.swingFoot = 'left_foot';
-plotData(opt_joint_angles_2,param,trajectory_2);
+rCTt2 =plotData(opt_joint_angles_2,param,foot_traj_2);
 % Plot 3rd step
 param.support_foot = 'left_foot';
 param.swingFoot = 'right_foot';
-plotData(opt_joint_angles_3,param,trajectory_3);
+rCTt3 = plotData(opt_joint_angles_3,param,foot_traj_3);
 %% Plot CoM
-% param.support_foot = 'left_foot';
-% param.swingFoot = 'right_foot';
-% plotCoM(opt_joint_angles_1,param);
-% param.support_foot = 'right_foot';
-% param.swingFoot = 'left_foot';
-% plotCoM(opt_joint_angles_2,param);
-% param.support_foot = 'left_foot';
-% param.swingFoot = 'right_foot';
-% plotCoM(opt_joint_angles_3,param);
+close all
+plot3([rCTt1(, rCTt2, rCTt3])
 %% Pack servo positions
 servo_positions = [opt_joint_angles_1,opt_joint_angles_2,opt_joint_angles_3];
-out=servo_positions(:)
+save('servo_positions.mat');
+out=servo_positions(:);

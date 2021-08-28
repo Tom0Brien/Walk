@@ -66,7 +66,7 @@ classdef Kinematics
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T0R = A01*A12*A23*A34*A45*A56*A6R;
            T0L = A07*A78*A89*A910*A1011*A1112*A12L;
-           if(param.supportFoot == "left_foot")
+           if(param.support_foot == "left_foot")
                 Hsp_ = T0L\T0R;
             else
                 Hsp_ = T0R\T0L;
@@ -76,7 +76,7 @@ classdef Kinematics
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T0R = A01*A12*A23*A34*A45*A56*A6R;
            T0L = A07*A78*A89*A910*A1011*A1112*A12L;
-           if(param.supportFoot == "left_foot")
+           if(param.support_foot == "left_foot")
                 Hsp_ = T0L\T0R;
                 xe_ = Hsp_(1:3,4);
             else
@@ -88,7 +88,7 @@ classdef Kinematics
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T0R = A01*A12*A23*A34*A45*A56*A6R;
            T0L = A07*A78*A89*A910*A1011*A1112*A12L;
-           if(param.supportFoot == "left_foot")
+           if(param.support_foot == "left_foot")
                 Hsp_ = T0L\T0R;
                 R_ = Hsp_(1:3,1:3);
             else
@@ -100,7 +100,7 @@ classdef Kinematics
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T0R = A01*A12*A23*A34*A45*A56*A6R;
            T0L = A07*A78*A89*A910*A1011*A1112*A12L;
-           if(param.supportFoot == "left_foot")
+           if(param.support_foot == "left_foot")
                 Htp_ = T0L;
            else
                 Htp_ = T0R;
@@ -110,7 +110,7 @@ classdef Kinematics
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T0R = A01*A12*A23*A34*A45*A56*A6R;
            T0L = A07*A78*A89*A910*A1011*A1112*A12L;
-           if(param.supportFoot == "left_foot")
+           if(param.support_foot == "left_foot")
                 xs_ = T0L(1:3,4);
            else
                 xs_ = T0R(1:3,4);

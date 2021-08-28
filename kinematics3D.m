@@ -95,7 +95,7 @@ output.com = [com_x;com_y;com_z];
 %% Outputs        
 output.T0R = A01*A12*A23*A34*A45*A56*A6R;
 output.T0L = A07*A78*A89*A910*A1011*A1112*A12L;
-if(param.supportFoot == "left_foot")
+if(param.support_foot == "left_foot")
     output.T = output.T0L\output.T0R;
     output.xe = output.T(1:3,4);
     output.R = output.T(1:3,1:3);

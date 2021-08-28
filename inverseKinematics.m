@@ -3,8 +3,8 @@ function [opt_joint_angles] = inverseKinematics(foot_trajectory,p)
 FK = Kinematics();
 %% Run optimization
 sim_time = length(foot_trajectory);
-opt_joint_angles = zeros(p.numBodies,sim_time);
-joints0 = p.initialConditions;
+opt_joint_angles = zeros(p.num_bodies,sim_time);
+joints0 = p.initial_conditions;
 for i = 1:sim_time
     cost = @(q) norm(foot_trajectory(:,i) - FK.xe(q,p)) ...
                            + 0.5*trace(eye(3)-FK.R(q,p)) ...

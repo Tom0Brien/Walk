@@ -1,13 +1,10 @@
 function [com_x, com_y, zmp_x, zmp_y] = generateCoMTraj(param)
 
 % Load params
-zc = param.zc; % LIPM height
-Ts = param.Ts; % delta time (s)
-step_time = param.stepTime; % timing for one step (s)
-t_preview = 2; % timing for preview (s)
-
-% Need to be tuned manually
-% Tune these two parameters until you get proper CoM trajectory
+zc = param.zc; 
+Ts = param.Ts; 
+step_time = param.step_time; 
+t_preview = 2; 
 Qe = 1;
 R = 1e-2;
 

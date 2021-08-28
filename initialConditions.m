@@ -1,4 +1,4 @@
-function output = initialConditions
+function output = initial_conditions
 neck_yaw = 0;
 head_pitch = 0;
 l_hip_yaw = 0.02923973;

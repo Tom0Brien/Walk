@@ -5,9 +5,9 @@ zc = param.zc;       % Center of Mass Height (constant)
 Ts = param.Ts;       % Sample Time 
 sim_time = param.sim_time;
 % Step parameters
-stepLength = param.stepLength;
-stepWidth = param.stepWidth;
-stepTime = param.stepTime;
+step_length = param.step_length;
+step_width = param.step_width;
+step_time = param.step_time;
 % Define state space matrices
 A = [0,1,0;0,0,1;0,0,0];
 B = [0;0;1];
@@ -71,7 +71,7 @@ ylabel('x displacement [m]')
 com_trajectory = [com_x';com_y';zeros(1,length(com_x))];
 figure(6);
 hold on;
-show(param.robot,param.initialConditions);
+show(param.robot,param.initial_conditions);
 plot3(com_x',com_y',zeros(1,length(com_x)),'LineWidth',3);
 
 

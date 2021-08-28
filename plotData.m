@@ -1,21 +1,19 @@
-function output = plotData(opt_jointAngles,param,trajectory)
+function rCTt = plotData(q,p,trajectory)
 %% Helper Functions
-com = @(kinematics) kinematics.com;
-xe  = @(kinematics) kinematics.xe;
-Hft = @(kinematics) inv(kinematics.Htf);
+FK = Kinematics();
 %% Convert centerOfMass into foot space
-n = size(opt_jointAngles,2);
-center = zeros(3,n);
-rCPp = zeros(4,n);
-rSPp = zeros(3,n);
-for i = 1:n
-    center(:,i) = com(kinematics3D(opt_jointAngles(:,i),param));
-    rSPp(:,i) = xe(kinematics3D(opt_jointAngles(:,i),param));
-    Tft = Hft(kinematics3D(opt_jointAngles(:,i),param));
-    rCPp(:,i) = Tft*[center(:,i);1];
+rCTt = zeros(3,p.N_samples);
+rCPp = zeros(4,p.N_samples);
+rSPp = zeros(3,p.N_samples);
+for i = 1:p.N_samples
+    rCTt(:,i) = FK.CoM(q(:,i),p);
+    rSPp(:,i) = FK.xe(q(:,i),p);
+    Htp = FK.Htp(q(:,i),p);
+    rCPp(:,i) = Htp\[rCTt(:,i);1];
 end
 %% Plot CoM position
 figure
+n = p.N_samples;
 subplot(2,1,1);
 hold on;
 plot(1:n,ones(1,n)*-0.115,'--');
@@ -46,24 +44,23 @@ subplot(3,1,3);
 plot(1:n,rSPp(3,:),1:n,trajectory(3,:));
 legend('Swing Foot z Position [m] (support foot space)','Swing Foot z Trajectory [m] (support foot space)');
 %%
-if(param.zmp_x)
-    % Plot ZMP and CoM trajectory
-    figure('name','ZMP X-Axis');
-    plot(param.zmp_x);
-    legend('ZMP_X [m]');
-    hold;
-    plot(param.com_x);
-    figure('name','ZMP Y-Axis');
-    legend('ZMP_Y [m]');
-    plot(param.zmp_y);
-    hold;
-    plot(param.com_y);
-    figure('name','ZMP vs CoM');
-    plot(param.zmp_x, param.zmp_y);
-    legend('ZMP_X [m]','ZMP_Y [m]');
-    hold;
-    plot(param.com_x, param.com_y);
-    legend('CoM_X [m]','CoM_Y [m]');
-end
+% Plot ZMP and CoM trajectory
+figure('name','ZMP X-Axis');
+plot(p.zmp_x);
+legend('ZMP_X [m]');
+hold;
+plot(p.com_x);
+figure('name','ZMP Y-Axis');
+legend('ZMP_Y [m]');
+plot(p.zmp_y);
+hold;
+plot(p.com_y);
+figure('name','ZMP vs CoM');
+plot(p.zmp_x, p.zmp_y);
+legend('ZMP_X [m]','ZMP_Y [m]');
+hold;
+plot(p.com_x, p.com_y);
+legend('CoM_X [m]','CoM_Y [m]');
+
 end
 

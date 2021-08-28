@@ -62,8 +62,8 @@ A12L = @(q12) rotz(q12);
 %% Outputs        
 T0R = A01*A12(q(1))*A23(q(2))*A34(q(3))*A45(q(4))*A56(q(5))*A6R(q(6))
 T0L = A07*A78(q(7))*A89(q(8))*A910(q(9))*A1011(q(10))*A1112(q(11))*A12L(q(12))
-param.supportFoot = 'left_foot';
-if(param.supportFoot == 'left_foot')
+param.support_foot = 'left_foot';
+if(param.support_foot == 'left_foot')
     output.end_effector = inv(T0L)*T0R;
 else
     output.end_effector = inv(T0R)*T0L;

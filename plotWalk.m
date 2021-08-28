@@ -2,7 +2,7 @@ function output = plotWalk(opt_jointAngles,robot,param)
 %% Helper
 CoM = @(kinematics) kinematics.com;
 %% Plot Robot Configurations
-init = zeros(param.numBodies,1);
+init = zeros(param.num_bodies,1);
 show(robot,init);
 view(2)
 ax = gca;

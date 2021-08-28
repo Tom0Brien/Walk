@@ -4,7 +4,7 @@ function [c,ceq] = nonlconFoot(q,param,joints0)
     rTPt = FK.xs(q,param);
     %% Convert centerOfMass into foot space
     rCTt = [FK.CoM(q,param);1];
-    rCPp = FK.Htf(q,param)\rCTt; %CoM to planted foot space
+    rCPp = FK.Htp(q,param)\rCTt; %CoM to planted foot space
     c =[
         % Ensure rCTp is always within support foot support polygon
         rCPp(3)-0.115;  
