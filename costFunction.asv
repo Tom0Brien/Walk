@@ -1,0 +1,21 @@
+function cost = costFuction(q,rSdPp,rCdWw,param,i)
+%% Helper Functions
+FK = Kinematics();
+%% Cost
+rSPp = FK.xe(q,param)
+% Torso from world
+Htp = FK.Htp(q,param)
+if (param.supportFoot == "left_foot")
+    Hwp = roty(pi/2)*trvec2tform([param.footstep(1,1)  0 -param.zc])
+else
+    Hwp = roty(pi/2)*trvec2tform([param.footstep(2,1) 0 -param.zc])
+end
+% transform com from torso to support foot space
+rCTt = FK.CoM(q,param)
+rCPp =  Htp\[rCTt;1]
+% transform com desired from world to support foot space
+rCdPp = inv(Hwp)*[rCdWw(:,i);1]
+
+cost = norm(rSdPp(:,i) - rSPp) + ... % swing foot desired - swing foot
+       norm(rCdPp - rCPp); % CoM desired - CoM
+end

@@ -62,8 +62,7 @@ if(param.zmp_x)
     plot(param.zmp_x, param.zmp_y);
     legend('ZMP_X [m]','ZMP_Y [m]');
     hold;
-    plot(param.com_x, param.com_y);
-    legend('CoM_X [m]','CoM_Y [m]');
+    plot(param.com_x, param.com_y, 'x');
 end
 end
 

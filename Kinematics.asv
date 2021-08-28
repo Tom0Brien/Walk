@@ -1,9 +1,9 @@
 classdef Kinematics
    properties
-      p
+      param
    end
    methods (Static)
-       function [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = FK(q_in, param)
+       function [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = FK(q_in, thparam)
             %% Maps joint angles to forward kinematic model            
             q = [q_in(12),q_in(13),q_in(14),q_in(15),q_in(16),q_in(17),q_in(1),q_in(2),q_in(3),q_in(4),q_in(5),q_in(6)];
             %% Params
