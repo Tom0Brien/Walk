@@ -1,4 +1,4 @@
-function rCTt = plotData(q,p,trajectory)
+function rCPp = plotData(q,p,trajectory)
 %% Helper Functions
 FK = Kinematics();
 %% Convert centerOfMass into foot space
@@ -43,24 +43,5 @@ legend('Swing Foot y Position [m] (support foot space)','Swing Foot y Trajectory
 subplot(3,1,3);
 plot(1:n,rSPp(3,:),1:n,trajectory(3,:));
 legend('Swing Foot z Position [m] (support foot space)','Swing Foot z Trajectory [m] (support foot space)');
-%%
-% Plot ZMP and CoM trajectory
-figure('name','ZMP X-Axis');
-plot(p.zmp_x);
-legend('ZMP_X [m]');
-hold;
-plot(p.com_x);
-figure('name','ZMP Y-Axis');
-legend('ZMP_Y [m]');
-plot(p.zmp_y);
-hold;
-plot(p.com_y);
-figure('name','ZMP vs CoM');
-plot(p.zmp_x, p.zmp_y);
-legend('ZMP_X [m]','ZMP_Y [m]');
-hold;
-plot(p.com_x, p.com_y);
-legend('CoM_X [m]','CoM_Y [m]');
-
 end
 

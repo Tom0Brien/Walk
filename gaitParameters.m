@@ -1,10 +1,10 @@
 function param = gaitParameters(robot)
 param.num_bodies = robot.NumBodies;
-param.step_height = 0.05;
+param.step_height = 0.04;
 param.step_length = 0.1;
 param.step_width = 0.13;
-param.step_time = 2;
-param.Ts = 0.1;
+param.step_time = 1;
+param.Ts = 0.05;
 param.N_samples = param.step_time/param.Ts;
 param.initial_conditions = initialConditions;
 param.robot = robot;
@@ -16,6 +16,8 @@ param.footstep = [0.0 0.0 0.0;
             param.step_length*2/2 param.step_width/2 0.0; 
             param.step_length*3/2 -param.step_width/2 0.0;
             param.step_length*4/2 param.step_width/2 0.0;
+            param.step_length*5/2 -param.step_width/2 0.0;
+            param.step_length*6/2 param.step_width/2 0.0;
             ];
 param.stepCount = 1;
 end
