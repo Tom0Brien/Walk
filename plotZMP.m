@@ -15,7 +15,7 @@ Hwp = trvec2tform([p.footstep(2,1)  -0.055 -0.46])*roty(pi/2);
 for i = p.N_samples+1:2*p.N_samples
     rCWW(:,i) = Hwp*rCPp(:,i);
 end
-Hwp = trvec2tform([p.footstep(3,1)+p.footstep(2,1)  0.055 -0.46])*roty(pi/2);
+Hwp = trvec2tform([p.footstep(3,1)  0.055 -0.46])*roty(pi/2);
 for i = 2*p.N_samples+1:3*p.N_samples
     rCWW(:,i) = Hwp*rCPp(:,i);
 end

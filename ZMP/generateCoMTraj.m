@@ -4,7 +4,7 @@ function [com_x, com_y, zmp_x, zmp_y] = generateCoMTraj(param)
 zc = param.zc; 
 Ts = param.Ts; 
 step_time = param.step_time; 
-t_preview = 2; 
+t_preview = param.step_time*2; 
 Qe = 1;
 R = 1e-2;
 
