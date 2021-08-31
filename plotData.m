@@ -2,10 +2,10 @@ function rCPp = plotData(q,p,trajectory)
 %% Helper Functions
 FK = Kinematics();
 %% Convert centerOfMass into foot space
-rCTt = zeros(3,p.N_samples);
-rCPp = zeros(4,p.N_samples);
-rSPp = zeros(3,p.N_samples);
-for i = 1:p.N_samples
+rCTt = zeros(3,p.N);
+rCPp = zeros(4,p.N);
+rSPp = zeros(3,p.N);
+for i = 1:p.N
     rCTt(:,i) = FK.CoM(q(:,i),p);
     rSPp(:,i) = FK.xe(q(:,i),p);
     Htp = FK.Htp(q(:,i),p);
@@ -13,7 +13,7 @@ for i = 1:p.N_samples
 end
 %% Plot CoM position
 figure
-n = p.N_samples;
+n = p.N;
 subplot(2,1,1);
 hold on;
 plot(1:n,ones(1,n)*-0.115,'--');

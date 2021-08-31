@@ -1,9 +1,9 @@
 function [opt_joint_angles] = inverseKinematicsZMP(p,foot_traj,com_traj)
 %% Run optimization
 FK = Kinematics();
-opt_joint_angles = zeros(p.num_bodies,p.N_samples);
+opt_joint_angles = zeros(p.num_bodies,p.N);
 joints0 = p.initial_conditions;
-for i = 1:p.N_samples
+for i = 1:p.N
     cost = @(q) costFunction(q,foot_traj,com_traj,p,i);
     nlconstraint = @(q) nonlconCoM(q);
     [joints_opt] = fmincon(cost,joints0,[],[],[],[],[],[],nlconstraint);

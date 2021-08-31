@@ -18,7 +18,7 @@ t1 = param.step_time;
 tt1 = t1.^(0:3).';
 T1 = [tt1,D*tt1];
 C = [X0 X1]/[T0 T1];
-t = linspace(t0,t1,param.N_samples);
+t = linspace(t0,t1,param.N);
 tt = t.^((0:3).');
 x = C*tt;
 v = C*D*tt;
@@ -41,15 +41,15 @@ tt2 = t2.^(0:3).';
 T2 = [tt2,D*tt2];
 C1 = [Z0 Z1]/[T0 T1];
 C2 = [Z1 Z2]/[T1 T2];
-t = linspace(t0,t1,param.N_samples/2);
+t = linspace(t0,t1,param.N/2);
 tt = t.^((0:3).');
 z = C1*tt;
 v = C1*D*tt;
-t = linspace(t1,t2,param.N_samples/2);
+t = linspace(t1,t2,param.N/2);
 tt = t.^((0:3).');
 z = [z C2*tt];
 v = [v C2*D*tt];
-output = [-z;zeros(1,param.N_samples);x];
+output = [-z;zeros(1,param.N);x];
 % Shift initial point to swing foot
 xe = @(kinematics) kinematics.xe;
 if param.support_foot == "left_foot"
@@ -62,8 +62,8 @@ output = output + [1 0 0;0 0 0;0 0 1]*xe(kinematics3D(param.initial_conditions,p
 show(param.robot,param.initial_conditions);
 hold on;
 Htf = @(kinematics) kinematics.Htf;
-trajectory = zeros(4,param.N_samples);
-for i=1:param.N_samples
+trajectory = zeros(4,param.N);
+for i=1:param.N
     trajectory(:,i) = Htf(kinematics3D(param.initial_conditions,param))*[output(:,i);1];
 end
 plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
