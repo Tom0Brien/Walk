@@ -50,19 +50,19 @@ rCdWw = [com_x(2*param.N_samples+1:3*param.N_samples);com_y(2*param.N_samples+1:
 %% Inverse Kinematics - Full Step - support foot -> left
 [opt_joint_angles_3] = inverseKinematicsZMP(param,foot_traj_3,rCdWw);
 %% Plot Walking
-% Plot first step
-figure
-param.support_foot = 'left_foot';
-param.swingFoot = 'right_foot';
-plotWalk(opt_joint_angles_1,robot,param);
-% Plot 2nd step
-param.support_foot = 'right_foot';
-param.swingFoot = 'left_foot';
-plotWalk(opt_joint_angles_2,robot,param);
-% Plot 3rd step
-param.support_foot = 'left_foot';
-param.swingFoot = 'right_foot';
-plotWalk(opt_joint_angles_3,robot,param);
+% % Plot first step
+% figure
+% param.support_foot = 'left_foot';
+% param.swingFoot = 'right_foot';
+% plotWalk(opt_joint_angles_1,robot,param);
+% % Plot 2nd step
+% param.support_foot = 'right_foot';
+% param.swingFoot = 'left_foot';
+% plotWalk(opt_joint_angles_2,robot,param);
+% % Plot 3rd step
+% param.support_foot = 'left_foot';
+% param.swingFoot = 'right_foot';
+% plotWalk(opt_joint_angles_3,robot,param);
 %% Plot Data
 % Plot first step
 param.support_foot = 'left_foot';
@@ -76,9 +76,7 @@ rCPp2 =plotData(opt_joint_angles_2,param,foot_traj_2);
 param.support_foot = 'left_foot';
 param.swingFoot = 'right_foot';
 rCPp3 = plotData(opt_joint_angles_3,param,foot_traj_3);
-
 rCPp = [rCPp1 rCPp2 rCPp3];
-
 plotZMP(param,rCPp);
 
 %% Pack servo positions

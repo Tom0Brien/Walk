@@ -44,6 +44,5 @@ plot(rCWW(1,1:3*p.N_samples), rCWW(2,1:3*p.N_samples),'--','LineWidth',3);
 legend('ZMP [m]','CoM [m]','Actual CoM [m]');
 xlabel('X [m]')
 ylabel('Y [m]')
-axis([0 0.2 -0.1 0.1])
 
 end
