@@ -4,7 +4,7 @@ FK = Kinematics();
 %% Cost
 rSPp = FK.xe(q,p);
 % Torso from world
-Hwp = trvec2tform([p.footstep(p.stepCount,1)  (-1)^(p.stepCount+1)*0.055 -0.46])*roty(pi/2);        
+Hwp = trvec2tform([p.footstep(p.step_count,1)  (-1)^(p.step_count+1)*0.055 -0.46])*roty(pi/2);        
 % transform com from torso to support foot space
 Htp = FK.Htp(q,p);
 rCTt = FK.CoM(q,p);

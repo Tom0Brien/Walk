@@ -5,13 +5,7 @@ addpath('./transforms');
 addpath('./ZMP');
 %% Forward kinematics
 robot = importrobot('NUgus.urdf');
-% smimport('NUgus.urdf')
 robot.DataFormat = 'column';
-close all;
-show(robot);
-com = centerOfMass(robot,homeConfiguration(robot));
-hold on;
-plot3(com(1),com(2),com(3),'o');
 %% Params
 p = gaitParameters(robot);
 %% ZMP Trajectory
@@ -26,10 +20,12 @@ p.swingFoot = 'right_foot';
 is_half_step = true;
 opt_joint_angles = [];
 foot_traj = [];
+opt_joint_angles_temp = p.initial_conditions;
 for i=1:(length(p.footstep)- 2)
-    p.stepCount = i;   
+    p.step_count = i;   
     %get swing foot trajectory
-    foot_traj_temp = generateFootTrajectory(p,is_half_step);
+    p.initial_conditions = opt_joint_angles_temp(:,end);
+    foot_traj_temp = generateFootTrajectory(p);
     foot_traj = [foot_traj foot_traj_temp];
     %get com traj for step
     rCdWw = [com_x((i-1)*p.N+1:p.N*i);com_y((i-1)*p.N+1:p.N*i);zeros(1,p.N)];
@@ -37,18 +33,13 @@ for i=1:(length(p.footstep)- 2)
     opt_joint_angles_temp = inverseKinematicsZMP(p,foot_traj_temp,rCdWw);
     opt_joint_angles = [opt_joint_angles opt_joint_angles_temp];
     %switch feet
-    disp(p.support_foot == "left_foot")
     if(p.support_foot == "left_foot")
-        disp('now right')
         p.support_foot = 'right_foot';
         p.swingFoot = 'left_foot';
     else
-        disp('now left')
         p.support_foot = 'left_foot';
         p.swingFoot = 'right_foot';
     end
-    p.initial_conditons = opt_joint_angles_temp(:,end);
-    is_half_step = false;
 end
 
 %% Plot Walking
@@ -58,11 +49,9 @@ p.swingFoot = 'right_foot';
 for i=1:(length(p.footstep)- 2)
     plotWalk(opt_joint_angles(:,(i-1)*p.N+1:p.N*i),robot,p);
     if(p.support_foot == "left_foot")
-        disp('now right')
         p.support_foot = 'right_foot';
         p.swingFoot = 'left_foot';
     else
-        disp('now left')
         p.support_foot = 'left_foot';
         p.swingFoot = 'right_foot';
     end
@@ -75,11 +64,9 @@ rCPp = [];
 for i=1:(length(p.footstep)- 2)
     rCPp = [rCPp plotData(opt_joint_angles(:,(i-1)*p.N+1:p.N*i),p,foot_traj(:,(i-1)*p.N+1:p.N*i))];
     if(p.support_foot == "left_foot")
-        disp('now right')
         p.support_foot = 'right_foot';
         p.swingFoot = 'left_foot';
     else
-        disp('now left')
         p.support_foot = 'left_foot';
         p.swingFoot = 'right_foot';
     end
@@ -88,6 +75,5 @@ end
  plotZMP(p,rCPp);
 
 %% Pack servo positions
-servo_positions = [opt_joint_angles_1,opt_joint_angles_2,opt_joint_angles_3];
-save('servo_positions.mat');
-out=servo_positions(:);
+save('opt_joint_angles.mat');
+out=opt_joint_angles(:);
