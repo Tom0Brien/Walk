@@ -55,7 +55,7 @@ else
     y =  p.step_width;
 end
 FK = Kinematics();
-output = output + FK.xe(p.initial_conditions,p); % [1 0 0;0 1 0;0 0 1]*xe(kinematics3D(p.initial_conditions,p));% [0;y;0];
+output = output + FK.xe(p.initial_conditions,p);
 %% Plot trajectory in torso space
 show(p.robot,p.initial_conditions);
 hold on;
