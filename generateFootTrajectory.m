@@ -59,10 +59,9 @@ output = output + FK.xe(p.initial_conditions,p); % [1 0 0;0 1 0;0 0 1]*xe(kinema
 %% Plot trajectory in torso space
 show(p.robot,p.initial_conditions);
 hold on;
-Htf = @(kinematics) kinematics.Htf;
 trajectory = zeros(4,p.N);
 for i=1:p.N
-    trajectory(:,i) = Htf(kinematics3D(p.initial_conditions,p))*[output(:,i);1];
+    trajectory(:,i) = FK.Htp(p.initial_conditions,p)*[output(:,i);1];
 end
 plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
 end

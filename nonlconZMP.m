@@ -1,4 +1,4 @@
-function [c,ceq] = nonlconCoM(q)
+function [c,ceq] = nonlconZMP(q)
     %% Constraints
     c =[
         %Ensure knees are bent backwards

@@ -41,7 +41,6 @@ for i=1:(length(p.footstep)- 2)
         p.swingFoot = 'right_foot';
     end
 end
-
 %% Plot Walking
 % Plot first step
 p.support_foot = 'left_foot';

@@ -64,4 +64,4 @@ for i=1:(length(p.footstep)- 2)
 end
 
 %% Pack servo positions
-out=opt_joint_angles(:)
+out=opt_joint_angl(:)

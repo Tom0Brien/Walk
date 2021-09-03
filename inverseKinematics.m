@@ -1,4 +1,4 @@
-function [opt_joint_angles] = inverseKinematics(foot_trajectory,p)
+function [opt_joint_angles] = inverseKinematics(p,foot_trajectory)
 %% Helper Functions
 FK = Kinematics();
 %% Run optimization
