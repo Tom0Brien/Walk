@@ -1,0 +1,24 @@
+function cost = costFuction(q,rSdPp,rCdWw,p,i)
+    %% Helper Functions
+    FK = Kinematics();
+    psi = pi/2;
+    rotz = [1,0,0,0;...
+     0,cos(phi),-sin(phi),0;...
+     0,sin(phi),cos(phi);...
+           ];
+    %% Cost
+    rSPp = FK.xe(q,p);
+    % Torso from world
+    Hwp = trvec2tform([p.footstep(p.step_count,1)  (-1)^(p.step_count+1)*0.055 -0.46])*roty(pi/2);        
+    % transform com from torso to support foot space
+    Htp = FK.Htp(q,p);
+    rCTt = FK.CoM(q,p);
+    rCPp =  Htp\[rCTt;1];
+    % transform com desired from world to support foot space
+    rCdPp = Hwp\[rCdWw(:,i);1];
+
+    cost = (rSdPp(:,i) - rSPp).'*(rSdPp(:,i) - rSPp) + ... % swing foot desired - swing foot
+           (rCdPp - rCPp).'*(rCdPp - rCPp)+ ...
+           0.5*trace(eye(3)-rotz*FK.R(q,p)) + ...
+           0.5*trace(eye(3)-FK.RL(q,p));
+end

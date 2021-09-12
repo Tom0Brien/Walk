@@ -5,7 +5,7 @@ zc = param.zc;       % Center of Mass Height (constant)
 Ts = param.Ts;       % Sample Time 
 sim_time = param.sim_time;
 % Step parameters
-step_length = param.step_length;
+step_length_x = param.step_length_x;
 step_width = param.step_width;
 step_time = param.step_time;
 % Define state space matrices
