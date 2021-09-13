@@ -6,16 +6,16 @@ hold on;
 plot(p.com_x,'LineWidth',5);
 xlabel('Sample [Ts]')
 ylabel('X [m]')
-Hwp = trvec2tform([p.footstep(1,1)  0.055 -0.46])*roty(pi/2);
+Hwp = trvec2tform([p.footsteps(1,1)  0.055 -0.46])*roty(pi/2);
 rCWW = zeros(4,p.N);
 for i = 1:p.N
     rCWW(:,i) = Hwp*rCPp(:,i);
 end
-Hwp = trvec2tform([p.footstep(2,1)  -0.055 -0.46])*roty(pi/2);
+Hwp = trvec2tform([p.footsteps(2,1)  -0.055 -0.46])*roty(pi/2);
 for i = p.N+1:2*p.N
     rCWW(:,i) = Hwp*rCPp(:,i);
 end
-Hwp = trvec2tform([p.footstep(3,1)  0.055 -0.46])*roty(pi/2);
+Hwp = trvec2tform([p.footsteps(3,1)  0.055 -0.46])*roty(pi/2);
 for i = 2*p.N+1:3*p.N
     rCWW(:,i) = Hwp*rCPp(:,i);
 end

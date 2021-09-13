@@ -8,6 +8,10 @@ robot = importrobot('NUgus.urdf');
 robot.DataFormat = 'column';
 %% Params
 p = gaitParameters(robot);
+%% Plot footsteps
+p.support_foot = 'left_foot';
+p.swingFoot = 'right_foot';
+plotFootsteps(p);
 %% ZMP Trajectory
 [com_x, com_y, zmp_x, zmp_y] = generateCoMTraj(p);
 p.com_x = com_x;
@@ -15,13 +19,11 @@ p.com_y = com_y;
 p.zmp_x = zmp_x;
 p.zmp_y = zmp_y;
 %% For loop
-p.support_foot = 'left_foot';
-p.swingFoot = 'right_foot';
 is_half_step = true;
 opt_joint_angles = [];
 foot_traj = [];
 opt_joint_angles_temp = p.initial_conditions;
-for i=1:(length(p.footstep)- 2)
+for i=1:(length(p.footsteps)- 2)
     p.step_count = i;   
     %get swing foot trajectory
     p.initial_conditions = opt_joint_angles_temp(:,end);
@@ -45,7 +47,7 @@ end
 % Plot first step
 p.support_foot = 'left_foot';
 p.swingFoot = 'right_foot';
-for i=1:(length(p.footstep)- 2)
+for i=1:(length(p.footsteps)- 2)
     plotWalk(opt_joint_angles(:,(i-1)*p.N+1:p.N*i),robot,p);
     if(p.support_foot == "left_foot")
         p.support_foot = 'right_foot';
@@ -60,7 +62,7 @@ end
 p.support_foot = 'left_foot';
 p.swingFoot = 'right_foot';
 rCPp = [];
-for i=1:(length(p.footstep)- 2)
+for i=1:(length(p.footsteps)- 2)
     rCPp = [rCPp plotData(opt_joint_angles(:,(i-1)*p.N+1:p.N*i),p,foot_traj(:,(i-1)*p.N+1:p.N*i))];
     if(p.support_foot == "left_foot")
         p.support_foot = 'right_foot';

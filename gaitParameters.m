@@ -1,5 +1,5 @@
 function p = gaitParameters(robot)
-p.walk_command = [-0.2;0;0];
+p.walk_command = [0.5;0;0];
 p.num_bodies = robot.NumBodies;
 p.step_height = 0.05;
  %0.15
@@ -7,19 +7,20 @@ p.step_width = 0.18;
 p.step_time = 0.5;
 p.step_length_x = p.step_time*p.walk_command(1);
 p.step_length_y = p.step_time*p.walk_command(2);
+p.foot_z_offset = 0.035;
 p.Ts = 0.05;
 p.N = p.step_time/p.Ts;
 p.initial_conditions = initialConditions;
 p.robot = robot;
 num_footsteps = 4;
-p.footstep = [0.0 0.0 0.0]
+p.footsteps = [0.0 0.0 0.0];
 for i = 1:num_footsteps
-    p.footstep = [p.footstep; p.step_length_x*i/2 (-1)^i*p.step_width/2+p.step_length_y*i/2 0.0];
+    p.footsteps = [p.footsteps; p.step_length_x*i/2 (-1)^i*p.step_width/2+p.step_length_y*i/2 0.0];
 end
         
 %zmp params
 p.g = 9.81;        % Gravity
-p.zc = 0.46;     % Center of Mass Height (constant)
+p.zc = 0.4950;     % Center of Mass Height (constant)
 p.t_preview = p.step_time*2; 
 
 Qe = 1;
