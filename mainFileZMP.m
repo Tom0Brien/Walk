@@ -74,7 +74,6 @@ for i=1:(length(p.footsteps)- 2)
 end
 %% Plot ZMP
  plotZMP(p,rCPp);
-
 %% Pack servo positions
 save('opt_joint_angles.mat');
 out=opt_joint_angles(:);

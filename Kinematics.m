@@ -158,28 +158,28 @@ classdef Kinematics
             y = @(T) T(2,4);
             z = @(T) T(3,4);
             
-%             mass = [m_yaw, m_roll, m_u_leg, m_l_leg, m_ankle, m_foot, m_yaw, m_roll, m_u_leg, m_l_leg, m_ankle, m_foot, m_upper_body];
-%             transforms = cat(3,CR1,CR2,CR3,CR4,CR5,CR6,CL1,CL2,CL3,CL4,CL5,CL6,CT);
-%             com_ = [0;0;0];
-% 
-%             for i = 1:size(mass,2)
-%                 com_ = [com_(1) + transforms(1,4,i)*mass(i); ...
-%                         com_(2) + transforms(2,4,i)*mass(i);
-%                         com_(3) + transforms(3,4,i)*mass(i);];
-%             end
-%             com_ = com_/total_mass;
-            
+            mass = [m_yaw, m_roll, m_u_leg, m_l_leg, m_ankle, m_foot, m_yaw, m_roll, m_u_leg, m_l_leg, m_ankle, m_foot, m_upper_body];
+            transforms = cat(3,CR1,CR2,CR3,CR4,CR5,CR6,CL1,CL2,CL3,CL4,CL5,CL6,CT);
+            com_ = [0;0;0];
 
-            com_x = (x(CR1)*m_yaw + x(CR2)*m_roll + x(CR3)*m_u_leg + x(CR4)*m_l_leg + x(CR5)*m_ankle + x(CR6)*m_foot + ...
-                     x(CL1)*m_yaw + x(CL2)*m_roll + x(CL3)*m_u_leg + x(CL4)*m_l_leg + x(CL5)*m_ankle + x(CL6)*m_foot+ ...
-                     x(CT)*m_upper_body)/total_mass;
-            com_y = (y(CR1)*m_yaw + y(CR2)*m_roll + y(CR3)*m_u_leg + y(CR4)*m_l_leg + y(CR5)*m_ankle + y(CR6)*m_foot + ...
-                     y(CL1)*m_yaw + y(CL2)*m_roll + y(CL3)*m_u_leg + y(CL4)*m_l_leg + y(CL5)*m_ankle + y(CL6)*m_foot+ ...
-                     y(CT)*m_upper_body)/total_mass;
-            com_z = (z(CR1)*m_yaw + z(CR2)*m_roll + z(CR3)*m_u_leg + z(CR4)*m_l_leg + z(CR5)*m_ankle + z(CR6)*m_foot + ...
-                     z(CL1)*m_yaw + z(CL2)*m_roll + z(CL3)*m_u_leg + z(CL4)*m_l_leg + z(CL5)*m_ankle + z(CL6)*m_foot+ ...
-                     z(CT)*m_upper_body)/total_mass;
-            com_ = [com_x;com_y;com_z];
+            for i = 1:size(mass,2)
+                com_ = [com_(1) + transforms(1,4,i)*mass(i); ...
+                        com_(2) + transforms(2,4,i)*mass(i);
+                        com_(3) + transforms(3,4,i)*mass(i);];
+            end
+            com_ = com_/total_mass;
+%             
+
+%             com_x = (x(CR1)*m_yaw + x(CR2)*m_roll + x(CR3)*m_u_leg + x(CR4)*m_l_leg + x(CR5)*m_ankle + x(CR6)*m_foot + ...
+%                      x(CL1)*m_yaw + x(CL2)*m_roll + x(CL3)*m_u_leg + x(CL4)*m_l_leg + x(CL5)*m_ankle + x(CL6)*m_foot+ ...
+%                      x(CT)*m_upper_body)/total_mass;
+%             com_y = (y(CR1)*m_yaw + y(CR2)*m_roll + y(CR3)*m_u_leg + y(CR4)*m_l_leg + y(CR5)*m_ankle + y(CR6)*m_foot + ...
+%                      y(CL1)*m_yaw + y(CL2)*m_roll + y(CL3)*m_u_leg + y(CL4)*m_l_leg + y(CL5)*m_ankle + y(CL6)*m_foot+ ...
+%                      y(CT)*m_upper_body)/total_mass;
+%             com_z = (z(CR1)*m_yaw + z(CR2)*m_roll + z(CR3)*m_u_leg + z(CR4)*m_l_leg + z(CR5)*m_ankle + z(CR6)*m_foot + ...
+%                      z(CL1)*m_yaw + z(CL2)*m_roll + z(CL3)*m_u_leg + z(CL4)*m_l_leg + z(CL5)*m_ankle + z(CL6)*m_foot+ ...
+%                      z(CT)*m_upper_body)/total_mass;
+%             com_ = [com_x;com_y;com_z];
                 
        end  
    end

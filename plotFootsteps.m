@@ -19,8 +19,8 @@ Htp = FK.Htp(zeros(20,1),p);
 rPTt = FK.xs(zeros(20,1),p);
 footwidth = 0.1;
 footlenth = 0.2;
-for i=1:size(p.footsteps,1)-1
-    rFPp = p.footsteps(i+1,:).' + [0;0;rPTt(3)];
+for i=1:size(p.footsteps,1)
+    rFPp = p.footsteps(i,:).' + [0;0;rPTt(3)];
     hold on;
     X = [rFPp(1)-footlenth/2 rFPp(1)+footlenth/2 rFPp(1)+footlenth/2 rFPp(1)-footlenth/2];
     Y = [rFPp(2)+footwidth/2 rFPp(2)+footwidth/2 rFPp(2)-footwidth/2 rFPp(2)-footwidth/2];

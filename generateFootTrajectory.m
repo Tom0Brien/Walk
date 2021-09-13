@@ -1,4 +1,4 @@
-function output = generateFootTrajectory(p)
+function rSPp = generateFootTrajectory(p)
 if(p.step_count == 1)
     step_length_x = p.step_length_x/2;
 else
@@ -37,16 +37,13 @@ tt2 = t2.^(0:3).';
 T2 = [tt2,D*tt2];
 C1 = [Z0 Z1]/[T0 T1];
 C2 = [Z1 Z2]/[T1 T2];
-t = linspace(t0,t1,p.N/2);
+t = linspace(t0,t1,floor(p.N/2));
 tt = t.^((0:3).');
 z = C1*tt;
 v = C1*D*tt;
-t = linspace(t1,t2,p.N/2);
+t = linspace(t1,t2,p.N-floor(p.N/2));
 tt = t.^((0:3).');
 z = [z C2*tt];
-
-% Shift initial point to swing foot
-xe = @(kinematics) kinematics.xe;
 %% Generate spline trajectoy for swing foot to follow - Y
 D = diag(1:3,-1);
 Y0 = [0 0];
@@ -62,15 +59,16 @@ t = linspace(t0,t1,p.N);
 tt = t.^((0:3).');
 y = C*tt;
 %% Pack splines together
-output = [-z;y;x];
+rSPp = [-z;y;x];
 FK = Kinematics();
-output = output + FK.xe(p.initial_conditions,p);
+rSPp = rSPp + [1,0,0;0,0,0;0,0,1]*FK.xe(p.initial_conditions,p) +[0;(-1)^(p.step_count)*p.step_width;0];
 %% Plot trajectory in torso space
+figure
 show(p.robot,p.initial_conditions);
 hold on;
 trajectory = zeros(4,p.N);
 for i=1:p.N
-    trajectory(:,i) = FK.Htp(p.initial_conditions,p)*[output(:,i);1];
+    trajectory(:,i) = FK.Htp(p.initial_conditions,p)*[rSPp(:,i);1];
 end
 plot3(trajectory(1,:),trajectory(2,:),trajectory(3,:));
 end
