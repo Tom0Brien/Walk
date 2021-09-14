@@ -8,12 +8,13 @@ function cost = costFuction(q,rSdPp,rCdWw,p,i)
     % transform com from torso to support foot space
     Htp = FK.Htp(q,p);
     rCTt = FK.CoM(q,p);
-    rCPp =  Htp\[rCTt;1];
+    rCPp =  (Htp\[rCTt;1]);
     % transform com desired from world to support foot space
-    rCdPp = Hwp\[rCdWw(:,i);1];
+    rCdPp = (Hwp\[rCdWw(:,i);1]);
 
     cost = (rSdPp(:,i) - rSPp).'*(rSdPp(:,i) - rSPp) + ... % swing foot desired - swing foot
            (rCdPp - rCPp).'*(rCdPp - rCPp)+ ...
            0.5*trace(eye(3)-FK.R(q,p)) + ...
-           0.5*trace(eye(3)-FK.RL(q,p));
+           0.5*trace(eye(3)-FK.RL(q,p)) + ...
+           0.5*trace(eye(3)-FK.RR(q,p));
 end
