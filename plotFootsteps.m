@@ -25,7 +25,17 @@ for i=1:size(p.footsteps,1)
     X = [rFPp(1)-footlenth/2 rFPp(1)+footlenth/2 rFPp(1)+footlenth/2 rFPp(1)-footlenth/2];
     Y = [rFPp(2)+footwidth/2 rFPp(2)+footwidth/2 rFPp(2)-footwidth/2 rFPp(2)-footwidth/2];
     Z = [rPTt(3) rPTt(3) rPTt(3) rPTt(3)];
-    fill3(X,Y,Z,'blue','EdgeColor','black','LineWidth',1);
+    fill3(X,Y,Z,'cyan');
 end
+%fill floor
+hold on;
+floor_width = 5;
+X = [-floor_width floor_width floor_width -floor_width];
+Y = [floor_width floor_width -floor_width -floor_width];
+Z = [rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001];
+fill3(X,Y,Z,'white');
+xlim([-5 5])
+ylim([-5 5])
+zlim([-0.5 2])
 end
 

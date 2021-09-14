@@ -76,4 +76,5 @@ end
  plotZMP(p,rCPp);
 %% Pack servo positions
 save('opt_joint_angles.mat');
+servos = opt_joint_angles(:,1:3*p.N)
 out=opt_joint_angles(:);
