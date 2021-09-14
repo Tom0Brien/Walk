@@ -1,13 +1,18 @@
 function p = gaitParameters(robot)
-p.walk_command = [0.2;0.0;0];
-p.num_bodies = robot.NumBodies;
+% p.walk_command = [0.3;0.0;0];
+% p.step_time = 0.75;
+% p.step_length_x = p.step_time*p.walk_command(1);
+% p.step_length_y = p.step_time*p.walk_command(2);
+
+p.step_time = 0.5;
+p.step_length_x = 0.2;
+p.step_length_y = 0.0;
 p.step_height = 0.05;
 p.step_width = 0.18;
-p.step_time = 0.5;
-p.step_length_x = p.step_time*p.walk_command(1);
-p.step_length_y = p.step_time*p.walk_command(2);
-p.foot_z_offset = 0.035;
 p.Ts = 0.05;
+
+p.num_bodies = robot.NumBodies;
+p.foot_z_offset = 0.035;
 p.N = p.step_time/p.Ts;
 p.initial_conditions = initialConditions;
 p.robot = robot;
