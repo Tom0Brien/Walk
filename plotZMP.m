@@ -26,21 +26,21 @@ ylabel('X [m]')
 
 
 figure('name','ZMP Y-Axis');
-plot(p.zmp_y,'LineWidth',5);
+plot(p.zmp_y,'LineWidth',3);
 hold;
-plot(p.com_y,'LineWidth',5);
-plot(rCWW(2,1:3*p.N),'--','LineWidth',3)
+plot(p.com_y,'LineWidth',3);
+plot(rCWW(2,1:3*p.N),'--','LineWidth',1.5)
 legend('ZMP_Y [m]','CoM Y [m]','Actual CoM Y [m]');
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
 figure('name','ZMP vs CoM');
-plot(p.zmp_x, p.zmp_y,'LineWidth',5);
+plot(p.zmp_x, p.zmp_y,'LineWidth',3);
 legend('ZMP_X [m]','ZMP_Y [m]');
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 hold on;
-plot(p.com_x, p.com_y,'LineWidth',5);
-plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',3);
+plot(p.com_x, p.com_y,'LineWidth',3);
+plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',1.5);
 legend('ZMP [m]','CoM [m]','Actual CoM [m]');
 xlabel('X [m]')
 ylabel('Y [m]')

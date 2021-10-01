@@ -7,5 +7,5 @@ function [c,ceq] = nonlconZMP(q)
         q(4) - pi/2;
         -q(4);
         ];
-    ceq = [q(12);q(1)];
+    ceq = []; %[q(12);q(1)];
 end

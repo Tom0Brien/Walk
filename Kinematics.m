@@ -101,12 +101,12 @@ classdef Kinematics
        function [RR_] = RR(q,param)
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T06 = A01*A12*A23*A34*A45*A56;
-           RR_ = [0 0 -1;0 1 0;1 0 0]*T06(1:3,1:3);
+           RR_ = T06(1:3,1:3);
        end
        function [RL_] = RL(q,param)
            [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q,param);
            T012 = A07*A78*A89*A910*A1011*A1112;
-           RL_ = [0 0 -1;0 1 0;1 0 0]*T012(1:3,1:3);
+           RL_ = T012(1:3,1:3);
        end
        function [com_] = CoM(q_in,param)
             %% Params
