@@ -52,26 +52,54 @@ wb_motor_set_velocity(right_ankle_pitch, velocity);
 wb_motor_set_velocity(right_knee_pitch, velocity);
 wb_motor_set_velocity(right_hip_pitch, velocity);
 
-% Set true if initializing
-init_conditions = false;
+%% Enable devices
+% get and enable accelerometer
+accelerometer = wb_robot_get_device('accelerometer');
+wb_accelerometer_enable(accelerometer,TIME_STEP);
+% get and enable gyro
+gyro = wb_robot_get_device('gyroscope');
+wb_gyro_enable(gyro,TIME_STEP);
+% get and enable accelerometer with no noise
+accelerometer_no_noise = wb_robot_get_device('accelerometer_no_noise');
+wb_accelerometer_enable(accelerometer_no_noise,TIME_STEP);
+% get and enable gyro with no noise
+gyro_no_noise = wb_robot_get_device('gyroscope_no_noise');
+wb_gyro_enable(gyro_no_noise,TIME_STEP);
+%% Initialize arrays to store measurements
+accelerometer_measurements = [0,0,0];
+gyroscope_measurements = [0,0,0];
+accelerometer_measurements_no_noise = [0,0,0];
+gyroscope_measurements_no_noise = [0,0,0];
+position = [0,0,0];
+orientation = [0,0,0;0,0,0;0,0,0]
+Htw = [0,0,0,0;0,0,0,0;0,0,0,0;0,0,0,0];
+
+init_pos = false;
 
 % Import servo targets
 opt_joint_angles = importdata('servo_positions.mat');
+
+
 
 % Get length of servo targets
 sim_time = size(opt_joint_angles,2)
 j = 1;
 time = 0;
-halfstep = true;
-stop = false;
+
+% supervisor
+robot_node = wb_supervisor_node_get_self()
+
+
 while wb_robot_step(TIME_STEP) ~= -1
-time = time + TIME_STEP;
-  % Reset servo targets to first full step
-  if(j == sim_time)
-    j = sim_time/3 + 1;
-    time = j * 100;
-  end 
-  if(stop == false)
+  time = time + TIME_STEP/1000;
+  if(time < 2 & init_pos == true)
+    disp(time)
+    time = time + TIME_STEP/1000;
+  else 
+    % Reset servo targets to first full step
+    if(j == sim_time)
+      j = sim_time/3 + 1;
+    end 
     wb_motor_set_position(left_hip_yaw,opt_joint_angles(1,j));
     wb_motor_set_position(left_hip_roll,opt_joint_angles(2,j));
     wb_motor_set_position(left_hip_pitch,opt_joint_angles(3,j));
@@ -92,9 +120,42 @@ time = time + TIME_STEP;
     wb_motor_set_position(right_shoulder_pitch,opt_joint_angles(18,j));
     wb_motor_set_position(right_shoulder_roll,opt_joint_angles(19,j));
     wb_motor_set_position(right_elbow_pitch ,opt_joint_angles(20,j));
+    disp('here')
     j = j + 1;
-    if(init_conditions == true)
-      stop = true;
-    end
+    init_pos = true;
+    %display velocity
+    pos = wb_supervisor_node_get_position(robot_node);
+    vel = wb_supervisor_node_get_velocity(robot_node);
+    disp("x pos:")
+    disp(pos(1));
+    disp("y pos:")
+    disp(pos(2));
+    disp("x pos:")
+    disp(pos(3));
+    disp("x vel:")
+    disp(vel(1));
+    disp("x vel:")
+    disp(vel(2));
+    disp("x vel:")
+    disp(vel(3));
+
+
+    % COLLECT DATA
+    % accelerometer_measurements = [accelerometer_measurements; wb_accelerometer_get_values(accelerometer)];
+    % gyroscope_measurements = [gyroscope_measurements; wb_gyro_get_values(gyro)];
+    % accelerometer_measurements_no_noise = [accelerometer_measurements_no_noise; wb_accelerometer_get_values(accelerometer_no_noise)];
+    % gyroscope_measurements_no_noise = [gyroscope_measurements_no_noise; wb_gyro_get_values(gyro_no_noise)];
+    % orientation = [orientation; wb_supervisor_node_get_orientation(robot_node)];
+    % position = [position; wb_supervisor_node_get_position(robot_node)];
+    % Htw = [Htw; [wb_supervisor_node_get_orientation(robot_node),wb_supervisor_node_get_position(robot_node).';[0,0,0,1]]];
+    % %% Store data in text file
+    % writematrix(accelerometer_measurements,'accelerometer_measurements')
+    % writematrix(gyroscope_measurements,'gyroscope_measurements')
+    % writematrix(accelerometer_measurements_no_noise,'accelerometer_measurements_no_noise')
+    % writematrix(gyroscope_measurements_no_noise,'gyroscope_measurements_no_noise')
+    % writematrix(orientation,'orientation')
+    % writematrix(position,'position')
+    % writematrix(Htw,'Htw')
   end
+  
 end
