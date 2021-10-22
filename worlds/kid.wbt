@@ -1,0 +1,116 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  info [
+    "Description: official soccer simulation for the 2021 Robocup Virtual Humanoid League (kid size)"
+    "Version 0.2"
+  ]
+  title "Robocup V-HL Kid"
+  basicTimeStep 8
+  optimalThreadCount 8
+  physicsDisableTime 0.1
+  physicsDisableLinearThreshold 0.1
+  physicsDisableAngularThreshold 0.1
+  contactProperties [
+    ContactProperties {
+      material1 "grass"
+      coulombFriction [
+        0.5
+      ]
+      softCFM 0.03
+    }
+    ContactProperties {
+      material1 "grass"
+      material2 "robocup soccer ball"
+      coulombFriction [
+        0.5
+      ]
+      bounce 0.76
+      softCFM 0.05
+    }
+    ContactProperties {
+      material2 "robocup soccer ball"
+      bounce 0.76
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.10068932846876426 -0.6554325334350467 -0.7485117589239502 3.405570328787145
+  position 3.6476110888169053 6.621078475605407 1.5311493831080694
+}
+TexturedBackground {
+  texture "noon_sunny_empty"
+}
+TexturedBackgroundLight {
+  texture "stadium_dry"
+}
+RobocupSoccerBall {
+  hidden linearVelocity_0 0 -1.8585458411840964e-07 -0.0002721996276633492
+  hidden angularVelocity_0 2.6652817337514455e-06 0 0
+  translation -0.208315 1.0030599984971493 0.07846579664897912
+  rotation 1 0 0 5.378701229441589e-06
+}
+DEF BLUE_1 NUgus {
+  hidden linearVelocity_0 -3.34125983410026e-18 -8.970675076473443e-17 -0.0784800000000004
+  hidden angularVelocity_0 -1.011187400528121e-15 1.668738700910163e-16 7.005888367589845e-17
+  hidden position_1_0 -1.0475821615954802e-17
+  hidden position_3_0 -1.8852875770942205e-18
+  hidden position_5_0 5.7606072412832695e-18
+  hidden position_8_0 -1.7321568928552245e-17
+  hidden position_10_0 -2.3206638656140894e-18
+  hidden position_12_0 1.2345729722255536e-17
+  hidden position_15_0 -5.717518883746119e-19
+  hidden position_16_0 5.328131675237786e-23
+  hidden position_17_0 -1.738834876196546e-17
+  hidden position_19_0 -2.1814713802562798e-18
+  hidden position_21_0 -4.9643312109598635e-18
+  hidden position_22_0 4.41572250608296e-23
+  hidden position_23_0 5.795799146465375e-18
+  hidden position_25_0 2.5470797811021406e-17
+  hidden translation_27 -0.0574999999999351 0.02500000000048305 -0.061000000000000026
+  hidden rotation_27 0 0.46240401974084583 -0.8866693422733796 3.75638627505988e-16
+  hidden translation_28 0.04100000000006492 0.02500000000008906 -0.06100000000000005
+  hidden rotation_28 0 0.46240401974084583 -0.8866693422733796 3.75638627505988e-16
+  hidden translation_29 -0.05750000000065107 -0.154000000000949 -0.061000000000000026
+  hidden rotation_29 0 0.46240401974084583 -0.8866693422733796 3.75638627505988e-16
+  hidden translation_30 0.04089999999934896 -0.1540000000013426 -0.06100000000000004
+  hidden rotation_30 0 0.46240401974084583 -0.8866693422733796 3.75638627505988e-16
+  hidden position_31_0 -5.653310090632642e-19
+  hidden position_32_0 1.2825824257884048e-22
+  hidden position_33_0 1.174791721848712e-17
+  hidden position_35_0 -4.1963660621997756e-18
+  hidden position_37_0 -8.92812855152871e-19
+  hidden position_38_0 1.1908529111673758e-22
+  hidden position_39_0 3.718651147726624e-18
+  hidden position_40_0 2.1175823681357504e-22
+  hidden position_41_0 -3.686767649084645e-18
+  hidden translation_43 -0.0409999999999351 0.02500000000041705 -0.06100000000000003
+  hidden rotation_43 -1.0859967408414947e-06 0.5201685469347774 -0.8540636292329647 3.899795070277877e-16
+  hidden translation_44 0.05700000000006493 0.025000000000025065 -0.06100000000000005
+  hidden rotation_44 -1.0859967408414947e-06 0.5201685469347774 -0.8540636292329647 3.899795070277877e-16
+  hidden translation_45 0.056999999999348946 -0.15400000000140698 -0.06100000000000004
+  hidden rotation_45 -1.0859967408414947e-06 0.5201685469347774 -0.8540636292329647 3.899795070277877e-16
+  hidden translation_46 -0.04100000000065108 -0.154000000001015 -0.06100000000000002
+  hidden rotation_46 -1.0859967408414947e-06 0.5201685469347774 -0.8540636292329647 3.899795070277877e-16
+  hidden position_47_0 -1.6067846446487589e-18
+  hidden position_49_0 -1.384727686111974e-18
+  translation 0 0.0357639 0.51451116
+  rotation -0.9843576501239891 0.16244621970576117 0.06820001719710851 8.218048798834468e-18
+  name "blue player 1"
+  controller "walk_controller"
+  controllerArgs [
+    "10020"
+    "8"
+  ]
+}
+Floor {
+  rotation 1 0 0 1.571
+  size 10000 10000
+  tileSize 1 1
+  appearance Appearance {
+    texture ImageTexture {
+    }
+  }
+}
+RobocupSoccerField {
+  size "kid"
+}
