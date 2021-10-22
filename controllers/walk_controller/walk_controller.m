@@ -3,8 +3,6 @@ data = importdata('data.mat');
 opt_joint_angles = data.opt_joint_angles;
 disp(opt_joint_angles)
 
-
-
 TIME_STEP = data.p.Ts*1000;
 % get and enable devices, e.g.:
 wb_robot_init();
@@ -78,7 +76,8 @@ gyroscope_measurements = [0,0,0];
 accelerometer_measurements_no_noise = [0,0,0];
 gyroscope_measurements_no_noise = [0,0,0];
 position = [0,0,0];
-orientation = [0,0,0;0,0,0;0,0,0]
+velocity = [0,0,0,0,0,0];
+orientation = [0,0,0;0,0,0;0,0,0];
 Htw = [0,0,0,0;0,0,0,0;0,0,0,0;0,0,0,0];
 
 init_pos = false;
@@ -87,19 +86,26 @@ init_pos = false;
 sim_time = size(opt_joint_angles,2)
 j = 1;
 time = 0;
-wait_time = 2;
-max_walk_time = wait_time + 1.5;
+wait_time = 1;
+walk_time = 5;
+max_walk_time = walk_time + wait_time;
 
 % supervisor
-robot_node = wb_supervisor_node_get_self()
-
-
+robot_node = wb_supervisor_node_get_self();
+step_length_x = string(data.p.step_length_x)
+step_length_y = string(data.p.step_length_y)
+step_time = string(data.p.step_time)
+filename = "walk_recording_steplength_"+step_length_x+"_steptime_"+step_time+".MOV";
+%wait until ready to record
+while(wb_supervisor_movie_is_ready() == 0)
+end
+wb_supervisor_movie_start_recording(convertStringsToChars(filename),1280,720,1,100,1,true);
 while wb_robot_step(TIME_STEP) ~= -1
-  time = time + TIME_STEP/1000;
+  time = time + TIME_STEP/1000
   if(time < wait_time & init_pos == true)
     disp(time)
-    time = time + TIME_STEP/100;
-  else 
+    time = time + TIME_STEP/1000;
+  else
     % Reset servo targets to first full step
     if(j == sim_time)
       j = floor(sim_time/3) + 1;
@@ -113,8 +119,8 @@ while wb_robot_step(TIME_STEP) ~= -1
     wb_motor_set_position(left_shoulder_pitch,opt_joint_angles(7,j));
     wb_motor_set_position(left_shoulder_roll,opt_joint_angles(8,j));
     wb_motor_set_position(left_elbow_pitch,opt_joint_angles(9,j));
-    %wb_motor_set_position(neck_yaw,opt_joint_angles(10,j));
-    %wb_motor_set_position(head_pitch,opt_joint_angles(11,j));
+    wb_motor_set_position(neck_yaw,opt_joint_angles(10,j));
+    wb_motor_set_position(head_pitch,opt_joint_angles(11,j));
     wb_motor_set_position(right_hip_yaw,opt_joint_angles(12,j));
     wb_motor_set_position(right_hip_roll,opt_joint_angles(13,j));
     wb_motor_set_position(right_hip_pitch,opt_joint_angles(14,j));
@@ -124,25 +130,8 @@ while wb_robot_step(TIME_STEP) ~= -1
     wb_motor_set_position(right_shoulder_pitch,opt_joint_angles(18,j));
     wb_motor_set_position(right_shoulder_roll,opt_joint_angles(19,j));
     wb_motor_set_position(right_elbow_pitch ,opt_joint_angles(20,j));
-
     j = j + 1;
     init_pos = true;
-    %display velocity
-    pos = wb_supervisor_node_get_position(robot_node);
-    vel = wb_supervisor_node_get_velocity(robot_node);
-    % disp("x pos:")
-    % disp(pos(1));
-    % disp("y pos:")
-    % disp(pos(2));
-    % disp("x pos:")
-    % disp(pos(3));
-    % disp("x vel:")
-    % disp(vel(1));
-    % disp("x vel:")
-    % disp(vel(2));
-    % disp("x vel:")
-    % disp(vel(3));
-
 
     % COLLECT DATA
     accelerometer_measurements = [accelerometer_measurements; wb_accelerometer_get_values(accelerometer)];
@@ -151,6 +140,7 @@ while wb_robot_step(TIME_STEP) ~= -1
     gyroscope_measurements_no_noise = [gyroscope_measurements_no_noise; wb_gyro_get_values(gyro_no_noise)];
     orientation = [orientation; wb_supervisor_node_get_orientation(robot_node)];
     position = [position; wb_supervisor_node_get_position(robot_node)];
+    velocity = [velocity; wb_supervisor_node_get_velocity(robot_node)];
     Htw = [Htw; [wb_supervisor_node_get_orientation(robot_node),wb_supervisor_node_get_position(robot_node).';[0,0,0,1]]];
     %% Store data in text file
     writematrix(accelerometer_measurements,'accelerometer_measurements');
@@ -160,15 +150,14 @@ while wb_robot_step(TIME_STEP) ~= -1
     writematrix(orientation,'orientation');
     writematrix(position,'position');
     writematrix(Htw,'Htw');
-    % save('COM', position);
     if(time > max_walk_time)
       save('position.mat')
       disp("Distance Traveled (x,y,z) = ")
       disp(position(end,:))
-      pause(10)
+      wb_supervisor_movie_stop_recording();
+      pause(5);
+      wb_supervisor_simulation_quit(wb_supervisor_movie_failed());
       break;
     end
-    
   end
-  
 end

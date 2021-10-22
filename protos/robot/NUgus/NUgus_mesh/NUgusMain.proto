@@ -34,7 +34,7 @@ PROTO NUgusMain [
   field SFFloat      cameraNoise            0.000000001      # Not much noise on real cameras
   field SFFloat      cameraMotionBlur       10               # With over 100fps, real cameras do not have much motion blur
   field MFColor      recognitionColors [0 0 1]
-  field SFVec3f     pid          10 5 0
+  field SFVec3f     pid          10 0 0
 ]
 {
   Robot {

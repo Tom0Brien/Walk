@@ -78,3 +78,12 @@ end
 save('controllers/walk_controller/data.mat');
 servos = opt_joint_angles(:,1:3*p.N);
 out=opt_joint_angles(:);
+
+%% Run simulation
+path_to_webots = "X:\Webots\Webots\msys64\mingw64\bin\webots.exe";
+path_to_world = "X:\Walk\worlds\kid.wbt";
+open_webots = path_to_webots + " " + path_to_world;
+system(open_webots)
+
+%% Display results of simulation
+simulationResultsZMP;

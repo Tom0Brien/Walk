@@ -4,7 +4,7 @@ function p = gaitParameters(robot)
 % p.step_length_x = p.step_time*p.walk_command(1);
 % p.step_length_y = p.step_time*p.walk_command(2);
 
-p.step_time = 0.5;
+p.step_time = 0.4;
 p.step_length_x = 0.25;
 p.step_length_y = 0.0;
 p.step_height = 0.045;
