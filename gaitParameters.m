@@ -9,7 +9,7 @@ p.step_length_x = 0.25;
 p.step_length_y = 0.0;
 p.step_height = 0.045;
 p.step_width = 0.16;
-p.Ts = 0.01;
+p.Ts = 0.05;
 
 p.num_bodies = robot.NumBodies;
 p.foot_z_offset = 0.035;
