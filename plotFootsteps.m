@@ -19,6 +19,17 @@ Htp = FK.Htp(zeros(20,1),p);
 rPTt = FK.xs(zeros(20,1),p);
 footwidth = 0.1;
 footlenth = 0.2;
+% fill floor
+hold on;
+floor_width = 5;
+X = [-floor_width floor_width floor_width -floor_width];
+Y = [floor_width floor_width -floor_width -floor_width];
+Z = [rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001];
+fill3(X,Y,Z,'white');
+xlim([-1 1])
+ylim([-1 1])
+zlim([-0.5 1.2])
+% plot footsteps
 for i=1:size(p.footsteps,1)
     rFPp = p.footsteps(i,:).' + [0;0;rPTt(3)];
     hold on;
@@ -26,16 +37,8 @@ for i=1:size(p.footsteps,1)
     Y = [rFPp(2)+footwidth/2 rFPp(2)+footwidth/2 rFPp(2)-footwidth/2 rFPp(2)-footwidth/2];
     Z = [rPTt(3) rPTt(3) rPTt(3) rPTt(3)];
     fill3(X,Y,Z,'cyan');
+    pause(0.5);
 end
-%fill floor
-hold on;
-floor_width = 5;
-X = [-floor_width floor_width floor_width -floor_width];
-Y = [floor_width floor_width -floor_width -floor_width];
-Z = [rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001];
-fill3(X,Y,Z,'white');
-xlim([-5 5])
-ylim([-5 5])
-zlim([-0.5 2])
+
 end
 
