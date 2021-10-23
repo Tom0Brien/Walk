@@ -19,7 +19,6 @@ p.com_y = com_y;
 p.zmp_x = zmp_x;
 p.zmp_y = zmp_y;
 %% For loop
-is_half_step = true;
 opt_joint_angles = [];
 foot_traj = [];
 opt_joint_angles_temp = p.initial_conditions;

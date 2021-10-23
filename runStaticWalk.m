@@ -64,7 +64,7 @@ for i=1:(length(p.footsteps)- 2)
 end
 
 %% Pack servo positions
-save('controllers/walk_controller/data.mat');
+save('controllers/walk_controller/data.mat','p','opt_joint_angles');
 servos = opt_joint_angles(:,1:3*p.N);
 out=opt_joint_angles(:);
 

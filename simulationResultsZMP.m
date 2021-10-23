@@ -1,5 +1,5 @@
 close all;
-load('controllers/walk_controller/position.mat')
+result = load('controllers/walk_controller/result.mat');
 
 Hwp = trvec2tform([p.footsteps(1,1)  p.footsteps(1,2)  -0.46])*roty(pi/2);
 rCWW = zeros(4,p.N);
@@ -29,7 +29,6 @@ xlabel('Sample [Ts]')
 ylabel('X [m]')
 
 %% ZMP Y-AXIS
-
 figure('name','ZMP Y-Axis');
 plot(p.zmp_y,'LineWidth',3);
 hold;
@@ -48,7 +47,7 @@ ylabel('X [m]')
 hold on;
 plot(p.com_x, p.com_y,'LineWidth',3);
 plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',1.5);
-plot(position(1:3*p.N,1)-position(3,1),position(1:3*p.N,2)-position(3,2),'*');
+plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),result.com_position(1:3*p.N,2)-result.com_position(3,2),'LineWidth',1.5);
 legend('ZMP [m]','CoM [m]','Actual CoM [m]');
 xlabel('X [m]')
 ylabel('Y [m]')
@@ -59,7 +58,7 @@ figure('name','Velocity X');
 desired_velocity_x = (0.5*p.step_length_x/p.step_time)*ones(3*p.N);
 plot(desired_velocity_x,'LineWidth',2);
 hold on;
-plot(velocity(1:3*p.N,1),'--','LineWidth',1.5);
+plot(result.velocity(1:3*p.N,1),'--','LineWidth',1.5);
 legend('desired x velocity [m/s]', 'simulation x velocity [m/s]');
 xlabel('Sample Ts')
 ylabel('x velocity [m/s]')

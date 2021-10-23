@@ -71,31 +71,33 @@ wb_accelerometer_enable(accelerometer_no_noise,TIME_STEP);
 gyro_no_noise = wb_robot_get_device('gyroscope_no_noise');
 wb_gyro_enable(gyro_no_noise,TIME_STEP);
 %% Initialize arrays to store measurements
-accelerometer_measurements = [0,0,0];
-gyroscope_measurements = [0,0,0];
-accelerometer_measurements_no_noise = [0,0,0];
-gyroscope_measurements_no_noise = [0,0,0];
-position = [0,0,0];
-velocity = [0,0,0,0,0,0];
-orientation = [0,0,0;0,0,0;0,0,0];
-Htw = [0,0,0,0;0,0,0,0;0,0,0,0;0,0,0,0];
+accelerometer_measurements = [];
+gyroscope_measurements = [];
+accelerometer_measurements_no_noise = [];
+gyroscope_measurements_no_noise = [];
+position = [];
+velocity = [];
+com_position = [];
+orientation = [];
+Htw = [];
 
 init_pos = false;
 
 % Get length of servo targets
-sim_time = size(opt_joint_angles,2)
+sim_time = size(opt_joint_angles,2);
 j = 1;
 time = 0;
 wait_time = 1;
-walk_time = 5;
+walk_time = data.p.walk_time;
 max_walk_time = walk_time + wait_time;
 
 % supervisor
 robot_node = wb_supervisor_node_get_self();
-step_length_x = string(data.p.step_length_x)
-step_length_y = string(data.p.step_length_y)
-step_time = string(data.p.step_time)
-filename = "walk_recording_steplength_"+step_length_x+"_steptime_"+step_time+".MOV";
+
+iteration = string(data.p.iteration);
+
+% filename = convertStringsToChars(iteration)+"_iteration.MOV";
+filename = 'walk.MOV';
 %wait until ready to record
 while(wb_supervisor_movie_is_ready() == 0)
 end
@@ -141,6 +143,7 @@ while wb_robot_step(TIME_STEP) ~= -1
     orientation = [orientation; wb_supervisor_node_get_orientation(robot_node)];
     position = [position; wb_supervisor_node_get_position(robot_node)];
     velocity = [velocity; wb_supervisor_node_get_velocity(robot_node)];
+    com_position = [com_position; wb_supervisor_node_get_center_of_mass(robot_node)];
     Htw = [Htw; [wb_supervisor_node_get_orientation(robot_node),wb_supervisor_node_get_position(robot_node).';[0,0,0,1]]];
     %% Store data in text file
     writematrix(accelerometer_measurements,'accelerometer_measurements');
@@ -151,11 +154,11 @@ while wb_robot_step(TIME_STEP) ~= -1
     writematrix(position,'position');
     writematrix(Htw,'Htw');
     if(time > max_walk_time)
-      save('position.mat')
+      save('result.mat','position','velocity','com_position')
       disp("Distance Traveled (x,y,z) = ")
       disp(position(end,:))
       wb_supervisor_movie_stop_recording();
-      pause(5);
+      pause(8);
       wb_supervisor_simulation_quit(wb_supervisor_movie_failed());
       break;
     end

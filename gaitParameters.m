@@ -9,18 +9,17 @@ p.step_length_x = 0.25;
 p.step_length_y = 0.0;
 p.step_height = 0.045;
 p.step_width = 0.16;
-p.Ts = 0.05;
+p.Ts = 0.01;
+p.walk_time = 10;
+p.iteration = 0; % used in optimization
 
 p.num_bodies = robot.NumBodies;
 p.foot_z_offset = 0.035;
 p.N = floor(p.step_time/p.Ts);
 p.initial_conditions = initialConditions;
 p.robot = robot;
-num_footsteps = 4;
-p.footsteps = [0.0 p.step_width/2 0.0];
-for i = 1:num_footsteps
-    p.footsteps = [p.footsteps; p.step_length_x*i/2 (-1)^i*p.step_width/2+p.step_length_y*i/2 0.0];
-end
+p.num_footsteps = 4;
+p.footsteps = generateFootsteps(p);
         
 %zmp params
 p.g = 9.81;        % Gravity
