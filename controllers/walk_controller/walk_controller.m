@@ -3,7 +3,7 @@ data = importdata('data.mat');
 opt_joint_angles = data.opt_joint_angles;
 disp(opt_joint_angles)
 
-TIME_STEP = data.p.Ts*1000;
+TIME_STEP = data.p.Ts*1000*data.p.time_scaling_factor;
 % get and enable devices, e.g.:
 wb_robot_init();
 n_devices = wb_robot_get_number_of_devices();
@@ -94,15 +94,13 @@ max_walk_time = walk_time + wait_time;
 % supervisor
 robot_node = wb_supervisor_node_get_self();
 
-iteration = string(data.p.iteration);
-
-% filename = convertStringsToChars(iteration)+"_iteration.MOV";
 if data.p.export
-    filename = 'walk.MOV';
+    iteration = string(data.p.iteration);
+    filename = convertStringsToChars(iteration)+"_walk.MOV";
     %wait until ready to record
     while(wb_supervisor_movie_is_ready() == 0)
     end
-    wb_supervisor_movie_start_recording(convertStringsToChars(filename),1280,720,1,100,1,true);
+    wb_supervisor_movie_start_recording(convertStringsToChars(filename),1920,1080,1,100,1,true);
 end
 while wb_robot_step(TIME_STEP) ~= -1
   time = time + TIME_STEP/1000

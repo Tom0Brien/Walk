@@ -1,4 +1,4 @@
-function cost = costFuction(q,rSdPp,rCdWw,p,i)
+function cost = costFunctionZMP(q,rSdPp,rCdWw,p,i)
     %% Helper Functions
     FK = Kinematics();
     %% Cost
@@ -13,7 +13,6 @@ function cost = costFuction(q,rSdPp,rCdWw,p,i)
     rCdPp = (Hwp\[rCdWw(:,i);1]);
     
     Thetarl = rot2rpy(FK.R(q,p));
-    
     Theta0r = rot2rpy(FK.RR(q,p)); 
     Theta0l = rot2rpy(FK.RL(q,p)); 
     

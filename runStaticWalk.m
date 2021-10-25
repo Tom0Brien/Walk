@@ -8,9 +8,11 @@ robot = importrobot('NUgus.urdf');
 robot.DataFormat = 'column';
 %% Params
 p = gaitParameters(robot);
-%% For loop
+%% Plot footsteps
 p.support_foot = 'left_foot';
 p.swingFoot = 'right_foot';
+plotFootsteps(p);
+%% For loop
 opt_joint_angles = [];
 foot_traj = [];
 opt_joint_angles_temp = p.initial_conditions;
