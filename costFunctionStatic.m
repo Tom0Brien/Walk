@@ -2,6 +2,7 @@ function cost = costFunctionStatic(q,rSdPp,joints0,p,i)
     %% Helper Functions
     FK = Kinematics();
     %% Cost
+    % overload roty to 3x3 rotation
     roty = @(theta) [cos(theta), 0,sin(theta); ...
               0,1,0; ...
               -sin(theta), 0, cos(theta);

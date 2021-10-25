@@ -97,11 +97,13 @@ robot_node = wb_supervisor_node_get_self();
 iteration = string(data.p.iteration);
 
 % filename = convertStringsToChars(iteration)+"_iteration.MOV";
-filename = 'walk.MOV';
-%wait until ready to record
-while(wb_supervisor_movie_is_ready() == 0)
+if data.p.export
+    filename = 'walk.MOV';
+    %wait until ready to record
+    while(wb_supervisor_movie_is_ready() == 0)
+    end
+    wb_supervisor_movie_start_recording(convertStringsToChars(filename),1280,720,1,100,1,true);
 end
-wb_supervisor_movie_start_recording(convertStringsToChars(filename),1280,720,1,100,1,true);
 while wb_robot_step(TIME_STEP) ~= -1
   time = time + TIME_STEP/1000
   if(time < wait_time & init_pos == true)
@@ -157,8 +159,10 @@ while wb_robot_step(TIME_STEP) ~= -1
       save('result.mat','position','velocity','com_position')
       disp("Distance Traveled (x,y,z) = ")
       disp(position(end,:))
-      wb_supervisor_movie_stop_recording();
-      pause(8);
+      if data.p.export
+          wb_supervisor_movie_stop_recording();
+          pause(8);
+      end
       wb_supervisor_simulation_quit(wb_supervisor_movie_failed());
       break;
     end

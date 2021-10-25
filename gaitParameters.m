@@ -10,8 +10,12 @@ p.step_length_y = 0.0;
 p.step_height = 0.045;
 p.step_width = 0.16;
 p.Ts = 0.01;
-p.walk_time = 10;
+
+% simulation params
+p.walk_time = 5;
 p.iteration = 0; % used in optimization
+p.export = false;
+p.run_simulation = true;
 
 p.num_bodies = robot.NumBodies;
 p.foot_z_offset = 0.035;

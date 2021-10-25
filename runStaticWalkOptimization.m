@@ -9,16 +9,16 @@ robot.DataFormat = 'column';
 p = gaitParameters(robot);
 %% Broad search optimization
 all_results = [];
-i = 0;
+iteration = 0;
 for step_length_x=0.05:0.05:0.5
     for step_time = 0.05:0.05:0.5
     %update gait parameters
     p.step_length_x = step_length_x;
     p.step_time = step_time;
     p.footsteps = generateFootsteps(p);
-    p.iteration = i;
+    p.iteration = iteration;
     opt_joint_angles = [];
-    i = i + 1;
+    iteration = iteration + 1;
     %initial conditions
     p.support_foot = 'left_foot';
     p.swingFoot = 'right_foot';

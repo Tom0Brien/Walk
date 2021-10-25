@@ -14,27 +14,30 @@ Hwp = trvec2tform([p.footsteps(3,1)  p.footsteps(3,2)  -0.46])*roty(pi/2);
 for i = 2*p.N+1:3*p.N
     rCWW(:,i) = Hwp*rCPp(:,i);
 end
-plot(rCWW(1,1:3*p.N),'--','LineWidth',3)
-legend('ZMP_X [m]','CoM* X [m]','Actual CoM X [m]');
-xlabel('Sample [Ts]')
-ylabel('X [m]')
 
 
 %% ZMP X-AXIS
 figure('name','ZMP X-Axis');
+hold on
 plot(p.zmp_x,'LineWidth',5);
 hold on;
 plot(p.com_x,'LineWidth',5);
+xlabel('Sample [Ts]')
+ylabel('X [m]')
+plot(rCWW(1,1:3*p.N),'--','LineWidth',3)
+plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),'--','LineWidth',3)
+legend('ZMP_X [m]','CoM* X [m]','Actual CoM X [m]','Simulation CoM X [m]');
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 
 %% ZMP Y-AXIS
 figure('name','ZMP Y-Axis');
 plot(p.zmp_y,'LineWidth',3);
-hold;
+hold on;
 plot(p.com_y,'LineWidth',3);
 plot(rCWW(2,1:3*p.N),'--','LineWidth',1.5)
-legend('ZMP_Y [m]','CoM Y [m]','Actual CoM Y [m]');
+plot(result.com_position(1:3*p.N,2)-result.com_position(3,2),'--','LineWidth',1.5)
+legend('ZMP_Y [m]','CoM Y [m]','Actual CoM Y [m]','Simulation CoM Y [m]');
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
 

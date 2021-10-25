@@ -10,15 +10,16 @@ robot.DataFormat = 'column';
 p = gaitParameters(robot);
 %% Broad search optimization
 all_results = [];
-i = 0;
-for step_length_x=0.05:0.05:0.5
-    for step_time = 0.05:0.05:0.5
+iteration = 0;
+for step_length_x=0.4:0.1:0.5
+    for step_time = 0.4:0.1:0.5
     %update gait parameters
-%     p.step_length_x = step_length_x;
-%     p.step_time = step_time;
+    p.step_length_x = step_length_x;
+    p.step_time = step_time;
+    p.footsteps = [];
     p.footsteps = generateFootsteps(p);
-    p.iteration = i;
-    i = i + 1;
+    p.iteration = iteration;
+    iteration = iteration + 1;
     %% ZMP Trajectory
     p.support_foot = 'left_foot';
     p.swingFoot = 'right_foot';
@@ -36,6 +37,7 @@ for step_length_x=0.05:0.05:0.5
         p.step_count = i;   
         %get swing foot trajectory
         p.initial_conditions = opt_joint_angles_temp(:,end);
+
         foot_traj_temp = generateFootTrajectory(p);
         foot_traj = [foot_traj foot_traj_temp];
         %get com traj for step
@@ -87,6 +89,13 @@ grid on;
 figure;
 title('Step length vs distance travelled');
 plot(plot_results(1,:),plot_results(3,:));
+xlabel('Step Length X [m]');
+ylabel('Distance Travelled [m]');
+
+figure;
+plot(plot_results(3,:),'LineWidth',3);
+title('Distance travelled vs Iteration');
+legend('Distance Travelled');
 xlabel('Step Length X [m]');
 ylabel('Distance Travelled [m]');
 
