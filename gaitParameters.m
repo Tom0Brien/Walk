@@ -4,18 +4,19 @@ function p = gaitParameters(robot)
 % p.step_length_x = p.step_time*p.walk_command(1);
 % p.step_length_y = p.step_time*p.walk_command(2);
 
-p.step_time = 0.4;
-p.step_length_x = 0.25;
+p.step_time = 0.5;
+p.step_length_x = 0.2;
 p.step_length_y = 0.0;
-p.step_height = 0.045;
-p.step_width = 0.16;
-p.Ts = 0.01;
+p.step_height = 0.04;
+p.step_width = 0.13;
+p.Ts = 0.05;
 
 % simulation params
-p.walk_time = 5;
+p.walk_time = 10;
 p.iteration = 0; % used in optimization
-p.export = false;
+p.export = true;
 p.run_simulation = true;
+p.time_scaling_factor = 1.1; % increase timestep in simulation to allow servos to achieve targets
 
 p.num_bodies = robot.NumBodies;
 p.foot_z_offset = 0.035;
