@@ -3,7 +3,7 @@ clear;
 close all;
 addpath('./transforms');
 %% Forward kinematics
-robot = importrobot('NUgus.urdf');
+robot = importrobot('robot.urdf');
 % smimport('NUgus.urdf')
 robot.DataFormat = 'column';
 %% Params
