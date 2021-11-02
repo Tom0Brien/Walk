@@ -9,7 +9,7 @@ ax = gca;
 ax.View = [45 45];
 ax.Projection = 'perspective';
 hold on
-framesPerSecond = 100;
+framesPerSecond = 200;
 r = rateControl(framesPerSecond);
 %% Initialize video
 n = size(opt_jointAngles,2);

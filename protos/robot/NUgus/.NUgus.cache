@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.5
+protoFileHash: 8e66ecdabc148db7ac1bd7a5c90f5d23
+needsRobotAncestor: 0
+baseType: Robot
+slotType: 
+parameters: translation,rotation,name,controller,controllerArgs,customData,supervisor,synchronization,selfCollision,robotTexture,MX64-torque,MX64-vel,MX64-damping,MX64-friction,MX106-torque,MX106-vel,MX106-damping,MX106-friction,backlash,gearMass,DYNAMIXEL-RESOLUTION,fieldOfView,cameraWidth,cameraHeight,cameraLensFocalLength,cameraNoise,cameraMotionBlur,recognitionColors
+tags: 
+license:  Apache License 2.0
+licenseUrl:  http://www.apache.org/licenses/LICENSE-2.0
+documentationUrl: 
+info: This\sis\sa\sproto\sfile\sfor\sWebots\sfor\sthe\sNUgus\nExtracted\sfrom:\sNUgus.urdf

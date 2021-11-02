@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.5
+protoFileHash: 8cd645f647f92b595a37479465c8ecc0
+needsRobotAncestor: 0
+baseType: Solid
+slotType: 
+parameters: translation,rotation,name,netColor,size,recognitionColors,isRecognition
+tags: 
+license:  Apache License 2.0
+licenseUrl:  http://www.apache.org/licenses/LICENSE-2.0
+documentationUrl: 
+info: tag:\sstatic\nRobocup\sHumanoid\sLeague\s2021\ssoccer\sgoal.\nThe\scolor\sand\ssize\sof\sthe\sgoal\scan\sbe\smodified.

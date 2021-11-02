@@ -161,7 +161,7 @@ while wb_robot_step(TIME_STEP) ~= -1
           wb_supervisor_movie_stop_recording();
           pause(8);
       end
-      wb_supervisor_simulation_quit(wb_supervisor_movie_failed());
+%       wb_supervisor_simulation_quit(wb_supervisor_movie_failed());
       break;
     end
   end

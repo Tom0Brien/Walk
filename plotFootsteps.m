@@ -6,7 +6,7 @@ init = zeros(p.num_bodies,1);
 show(p.robot,init);
 view(2)
 ax = gca;
-ax.View = [-90 90];
+ax.View = [0 45];
 ax.Projection = 'perspective';
 hold on
 framesPerSecond = 100;
@@ -22,7 +22,6 @@ footlenth = 0.2;
 % fill floor
 hold on;
 floor_width = 2;
-im = imread('images.jpg')
 X = [-floor_width floor_width floor_width -floor_width];
 Y = [floor_width floor_width -floor_width -floor_width];
 Z = [rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001];

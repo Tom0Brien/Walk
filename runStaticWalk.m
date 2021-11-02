@@ -76,7 +76,6 @@ if(p.run_simulation)
     path_to_world = "X:\Walk\worlds\kid.wbt";
     open_webots = path_to_webots + " " + path_to_world;
     system(open_webots)
-
     % Compare Simulation Results
     simulationResultsStatic;
 end

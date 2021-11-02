@@ -112,19 +112,14 @@ classdef Kinematics
             %% Params
             [A01,A12,A23,A34,A45,A56,A6R,A07,A78,A89,A910,A1011,A1112,A12L] = Kinematics.FK(q_in,param);
             q = [q_in(12),q_in(13),q_in(14),q_in(15),q_in(16),q_in(17),q_in(1),q_in(2),q_in(3),q_in(4),q_in(5),q_in(6)];
-            hip_yaw = 0.055;
-            hip_roll = 0.06;
-            hip_pitch = 0;
-            upper_leg = 0.2;
-            lower_leg = 0.2;
-            ankle = 0;
-            com_hip_roll = hip_roll/2;
-            com_hip_pitch = hip_pitch/2;
-            com_upper_leg = upper_leg/2;
-            com_lower_leg = lower_leg/2;
-            com_ankle = 0;
-            com_foot = 0;
-            com_upper_body = 0.15;
+
+            com_hip_yaw = 0.0461;
+            com_hip_roll = 0.015730;
+            com_upper_leg = 0.086820;
+            com_lower_leg = 0.1;
+            com_ankle = 0.015730;
+            com_foot = 0.030800;
+            com_upper_body = 0.102150;
 
             m_yaw = 0.067;
             m_roll = 0.306;
@@ -137,15 +132,15 @@ classdef Kinematics
             total_mass = m_yaw*2 + m_roll*2 + m_u_leg*2 + m_l_leg*2 + m_ankle*2 + m_foot*2 + m_upper_body;
             %% Centre of Mass
             % right leg com
-            CR1 = A01*(rotz(q(1))*roty(pi/2)*tranx(com_hip_roll));
-            CR2 = A01*A12*(rotz(q(2))*rotx(-pi/2)*tranx(com_hip_pitch));
+            CR1 = A01*(rotz(q(1))*roty(pi/2)*tranx(com_hip_yaw));
+            CR2 = A01*A12*(rotz(q(2))*rotx(-pi/2)*tranx(com_hip_roll));
             CR3 = A01*A12*A23*(rotz(q(3))*tranx(com_upper_leg));
             CR4 = A01*A12*A23*A34*(rotz(q(4))*tranx(com_lower_leg));
             CR5 = A01*A12*A23*A34*A45*(rotz(q(5))*rotx(pi/2)*tranx(com_ankle));
             CR6 = A01*A12*A23*A34*A45*A56*(rotz(q(6))*tranx(com_foot));
             %left leg com
-            CL1 = A07*(rotz(q(7))*roty(pi/2)*tranx(com_hip_roll));
-            CL2 = A07*A78*(rotz(q(8))*rotx(-pi/2)*tranx(com_hip_pitch));
+            CL1 = A07*(rotz(q(7))*roty(pi/2)*tranx(com_hip_yaw));
+            CL2 = A07*A78*(rotz(q(8))*rotx(-pi/2)*tranx(com_hip_roll));
             CL3 = A07*A78*A89*(rotz(q(9))*tranx(com_upper_leg));
             CL4 = A07*A78*A89*A910*(rotz(q(10))*tranx(com_lower_leg));
             CL5 = A07*A78*A89*A910*A1011*(rotz(q(11))*rotx(pi/2)*tranx(com_ankle));
