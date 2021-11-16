@@ -13,11 +13,13 @@ p.support_foot = 'left_foot';
 p.swingFoot = 'right_foot';
 plotFootsteps(p);
 %% ZMP Trajectory
-[com_x, com_y, zmp_x, zmp_y] = generateCoMTraj(p);
+[com_x, com_y, zmp_x_star, zmp_y_star, zmp_x, zmp_y] = generateCoMTraj(p);
 p.com_x = com_x;
 p.com_y = com_y;
 p.zmp_x = zmp_x;
 p.zmp_y = zmp_y;
+p.zmp_x_star = zmp_x_star;
+p.zmp_y_star = zmp_y_star;
 %% For loop
 opt_joint_angles = [];
 foot_traj = [];

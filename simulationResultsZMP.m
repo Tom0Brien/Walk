@@ -18,43 +18,75 @@ end
 
 %% ZMP X-AXIS
 figure('name','ZMP X-Axis');
+subplot(3,1,1);
 hold on
-plot(p.zmp_x,'LineWidth',5);
+% plot(p.zmp_x,'LineWidth',5);
 hold on;
 plot(p.com_x,'LineWidth',5);
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 plot(rCWW(1,1:3*p.N),'--','LineWidth',3)
 plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),'--','LineWidth',3)
-legend('ZMP_X [m]','CoM* X [m]','Actual CoM X [m]','Simulation CoM X [m]');
+legend('CoM* X [m]','Achieved CoM X [m] (Matlab)','Achieved CoM X [m] (Simulation)');
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 
 %% ZMP Y-AXIS
-figure('name','ZMP Y-Axis');
-plot(p.zmp_y,'LineWidth',3);
+subplot(3,1,2);
+% plot(p.zmp_y,'LineWidth',3);
 hold on;
-plot(p.com_y,'LineWidth',3);
-plot(rCWW(2,1:3*p.N),'--','LineWidth',1.5)
-plot(result.com_position(1:3*p.N,2)-result.com_position(3,2),'--','LineWidth',1.5)
-legend('ZMP_Y [m]','CoM Y [m]','Actual CoM Y [m]','Simulation CoM Y [m]');
+plot(p.com_y,'LineWidth',5);
+plot(rCWW(2,1:3*p.N),'--','LineWidth',3)
+plot(result.com_position(1:3*p.N,2)-result.com_position(3,2),'--','LineWidth',3)
+legend('CoM Y [m]','Achieved CoM Y [m] (Matlab)','Achieved CoM Y [m] (Simulation)');
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
 
 %% ZMP AND COM
-figure('name','ZMP vs CoM');
-plot(p.zmp_x, p.zmp_y,'LineWidth',3);
-legend('ZMP_X [m]','ZMP_Y [m]');
+subplot(3,1,3);
+FK = Kinematics();
+rPTt = FK.xs(zeros(20,1),p);
+footwidth = 0.1;
+footlenth = 0.2;
+for i=1:3
+    rFPp = p.footsteps(i,:).' + [0;0;rPTt(3)];
+    hold on;
+    X = [rFPp(1)-footlenth/2 rFPp(1)+footlenth/2 rFPp(1)+footlenth/2 rFPp(1)-footlenth/2];
+    Y = [rFPp(2)+footwidth/2 rFPp(2)+footwidth/2 rFPp(2)-footwidth/2 rFPp(2)-footwidth/2];
+    fill(X,Y,'white');
+end
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 hold on;
-plot(p.com_x, p.com_y,'LineWidth',3);
-plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',1.5);
-plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),result.com_position(1:3*p.N,2)-result.com_position(3,2),'LineWidth',1.5);
-legend('ZMP [m]','CoM [m]','Actual CoM [m]');
+plot(p.com_x, p.com_y,'LineWidth',5);
+plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',3);
+plot(result.com_position(3:3*p.N,1)-result.com_position(3,1),result.com_position(3:3*p.N,2)-result.com_position(3,2),'LineWidth',3);
+legend('Foot Step', 'Foot Step', 'Foot Step', 'Desired CoM [m]','Achieved CoM [m] (Matlab)','Achieved CoM [m] (Simulation)');
+xlim([-0.1 0.5]);
+ylim([-0.15 0.15]);
 xlabel('X [m]')
 ylabel('Y [m]')
 
+figure;
+for i=1:3
+    rFPp = p.footsteps(i,:).' + [0;0;rPTt(3)];
+    hold on;
+    X = [rFPp(1)-footlenth/2 rFPp(1)+footlenth/2 rFPp(1)+footlenth/2 rFPp(1)-footlenth/2];
+    Y = [rFPp(2)+footwidth/2 rFPp(2)+footwidth/2 rFPp(2)-footwidth/2 rFPp(2)-footwidth/2];
+    fill(X,Y,'white');
+end
+xlabel('Sample [Ts]')
+ylabel('X [m]')
+hold on;
+title('CoM Trajectory ZMP');
+plot(p.com_x, p.com_y,'LineWidth',5);
+plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',3);
+plot(result.com_position(3:3*p.N,1)-result.com_position(3,1),result.com_position(3:3*p.N,2)-result.com_position(3,2),'LineWidth',3);
+legend('Foot Step', 'Foot Step', 'Foot Step', 'Desired CoM [m]','Achieved CoM [m] (Matlab)','Achieved CoM [m] (Simulation)');
+xlim([-0.1 0.5]);
+ylim([-0.15 0.15]);
+xlabel('X [m]')
+ylabel('Y [m]')
 
 %% Velocity
 figure('name','Velocity X');

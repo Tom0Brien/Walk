@@ -12,17 +12,17 @@ PROTO NUgus [
   field  SFString    customData           ""                 # Is `Robot.customData`.
   field  SFBool      supervisor           TRUE              # Is `Robot.supervisor`.
   field  SFBool      synchronization      TRUE               # Is `Robot.synchronization`.
-  field  SFBool      selfCollision        TRUE               # Is `Robot.selfCollision`.
+  field  SFBool      selfCollision        FALSE               # Is `Robot.selfCollision`.
   field  MFString    robotTexture         "NUgus_textures/NUgus_base_color.jpg"
   # MOTOR PARAMETER: See section 2. of docs/Robot_Model_RoboCup_2021 for more information
-  field  SFFloat     MX64-torque          7.30
-  field  SFFloat     MX64-vel             8.17
-  field  SFFloat     MX64-damping         0.65
-  field  SFFloat     MX64-friction        1.73
-  field  SFFloat     MX106-torque         10.00
-  field  SFFloat     MX106-vel            5.76
-  field  SFFloat     MX106-damping        1.23
-  field  SFFloat     MX106-friction       2.55
+  field  SFFloat     MX64-torque          100
+  field  SFFloat     MX64-vel             100
+  field  SFFloat     MX64-damping         0
+  field  SFFloat     MX64-friction        0
+  field  SFFloat     MX106-torque         100
+  field  SFFloat     MX106-vel            100
+  field  SFFloat     MX106-damping        0
+  field  SFFloat     MX106-friction       0
   field  SFFloat     backlash             0.01
   field  SFFloat     gearMass             0.001
   field  SFFloat     DYNAMIXEL-RESOLUTION 0.0015

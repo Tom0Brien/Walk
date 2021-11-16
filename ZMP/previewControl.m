@@ -1,4 +1,4 @@
-function [com_x, com_y] = previewControl(p_x, p_y, dt, t_preview, t_calc, A_d, B_d, C_d, Gi, Gx, Gp)
+function [com_x, com_y, zmp_x, zmp_y] = previewControl(p_x, p_y, dt, t_preview, t_calc, A_d, B_d, C_d, Gi, Gx, Gp)
 
 % State for com x and y direction
 x_x = [0;0;0];
@@ -7,6 +7,8 @@ x_y = [0;0;0];
 % Variable for plotting
 com_x = [];
 com_y = [];
+zmp_x = [];
+zmp_y = [];
 
 k = 1;
 for ii=0:dt:t_calc
@@ -37,6 +39,10 @@ for ii=0:dt:t_calc
     % update state
     x_x = A_d*x_x + B_d*u_x;
     x_y = A_d*x_y + B_d*u_y;
+    
+    % zmp output
+    zmp_x = [zmp_x y_x]
+    zmp_y = [zmp_y y_y]
     
     % save current state to array
     com_x = [com_x x_x(1)];

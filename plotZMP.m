@@ -15,35 +15,57 @@ for i = 2*p.N+1:3*p.N
     rCWW(:,i) = Hwp*rCPp(:,i);
 end
 
-figure('name','ZMP X-Axis');
-plot(p.zmp_x(1:size(rCWW,2)),'LineWidth',5);
+figure;
+title('ZMP Trajectory Tracking')
+subplot(2,2,1);
+title('X-Axis');
+plot(p.com_x(1:size(rCWW,2)),'LineWidth',3.5);
 hold on;
-plot(p.com_x(1:size(rCWW,2)),'LineWidth',5);
+plot(rCWW(1,:),'--','LineWidth',3);
 xlabel('Sample [Ts]')
 ylabel('X [m]')
-% plot(rCWW(1,1:3*p.N),'--','LineWidth',3)
-legend('ZMP_X [m]','CoM* X [m]','Actual CoM X [m]');
+legend('Desired CoM [m] (Trajectory) ','Achieved CoM [m](IK)');
+subplot(2,2,2);
+title('ZMP X-Axis');
+plot(p.zmp_x_star(1:size(rCWW,2)),'LineWidth',3);
+hold on;
+plot(p.zmp_x(1:size(rCWW,2)),'--','LineWidth',3);
 xlabel('Sample [Ts]')
 ylabel('X [m]')
+legend('Desired ZMP [m] (Trajectory)','Achieved ZMP(Preview Control) ');
+xlabel('Sample [Ts]')
+ylabel('x [m]')
 
-
-figure('name','ZMP Y-Axis');
-plot(p.zmp_y(1:size(rCWW,2)),'LineWidth',5);
-hold;
-plot(p.com_y,'LineWidth',5);
-% plot(rCWW(2,1:3*p.N),'--','LineWidth',3)
-legend('ZMP_Y [m]','CoM Y [m]','Actual CoM Y [m]');
+subplot(2,2,3);
+title('Y-Axis');
+plot(p.com_y(1:size(rCWW,2)),'LineWidth',3.5);
+hold on;
+plot(rCWW(2,:),'--','LineWidth',3);
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
+legend('Desired CoM [m] (Trajectory) ','Achieved CoM [m](IK)');
+subplot(2,2,4);
+title('ZMP Y-Axis');
+plot(p.zmp_y_star(1:size(rCWW,2)),'LineWidth',3);
+hold on;
+plot(p.zmp_y(1:size(rCWW,2)),'--','LineWidth',3);
+xlabel('Sample [Ts]')
+ylabel('Y [m]')
+legend('Desired ZMP [m] (Trajectory)','Achieved ZMP(Preview Control) ');
+xlabel('Sample [Ts]')
+ylabel('y [m]')
+
+
 figure('name','ZMP vs CoM');
 plot(p.zmp_x(1:size(rCWW,2)), p.zmp_y(1:size(rCWW,2)),'LineWidth',3);
+plot(p.zmp_x_star(1:size(rCWW,2)), p.zmp_y_star(1:size(rCWW,2)),'LineWidth',3);
 legend('ZMP_X [m]','ZMP_Y [m]');
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 hold on;
 plot(p.com_x(1:size(rCWW,2)), p.com_y(1:size(rCWW,2)),'LineWidth',3);
 plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',1.5);
-legend('ZMP [m]','CoM [m]','Actual CoM [m]');
+legend('ZMP* [m]','CoM* [m]','Achieved CoM [m]', 'ZMP');
 xlabel('X [m]')
 ylabel('Y [m]')
 

@@ -21,7 +21,7 @@ footwidth = 0.1;
 footlenth = 0.2;
 % fill floor
 hold on;
-floor_width = 2;
+floor_width = 1.5;
 X = [-floor_width floor_width floor_width -floor_width];
 Y = [floor_width floor_width -floor_width -floor_width];
 Z = [rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001 rPTt(3)-0.001];
