@@ -4,15 +4,15 @@ function p = gaitParameters(robot)
 % p.step_length_x = p.step_time*p.walk_command(1);
 % p.step_length_y = p.step_time*p.walk_command(2);
 
-p.step_time = 1.5;
-p.step_length_x = 0.3;
+p.step_time = 4;
+p.step_length_x = 0.2;
 p.step_length_y = 0.0;
 p.step_height = 0.04;
 p.step_width = 0.15;
-p.Ts = 0.01;
+p.Ts = 0.05;
 
 % simulation params
-p.walk_time = 10;
+p.walk_time = 16;
 p.iteration = 0; % used in optimization
 p.export = false;
 p.run_simulation = true;
@@ -23,7 +23,7 @@ p.foot_z_offset = 0.035;
 p.N = floor(p.step_time/p.Ts);
 p.initial_conditions = initialConditions;
 p.robot = robot;
-p.num_footsteps = 4;
+p.num_footsteps = 10;
 p.footsteps = generateFootsteps(p);
         
 %zmp params

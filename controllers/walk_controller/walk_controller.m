@@ -110,7 +110,7 @@ while wb_robot_step(TIME_STEP) ~= -1
   else
     % Reset servo targets to first full step
     if(j == sim_time)
-      j = floor(sim_time/3) + 1;
+      j = data.p.N + 1;
     end 
     wb_motor_set_position(left_hip_yaw,opt_joint_angles(1,j));
     wb_motor_set_position(left_hip_roll,opt_joint_angles(2,j));

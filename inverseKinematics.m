@@ -8,7 +8,8 @@ joints0 = p.initial_conditions;
 for i = 1:sim_time
         cost = @(q) costFunctionStatic(q,foot_trajectory,joints0,p,i);
         nlconstraint = @(q) nonlconFoot(q,p,joints0);
-        [joints_opt] = fmincon(cost,joints0,[],[],[],[],[],[],nlconstraint);
+        options = optimset('algorithm','sqp');
+        [joints_opt] = fmincon(cost,joints0,[],[],[],[],[],[],nlconstraint, options);
         joints0 = joints_opt; %warm-start next optimization
         opt_joint_angles(:,i) = joints_opt;
 end

@@ -25,7 +25,7 @@ hold on;
 % plot(p.com_x,'LineWidth',5);
 xlabel('Sample [Ts]')
 ylabel('X [m]')
-plot(rCWW(1,1:3*p.N),'--','LineWidth',3)
+plot(rCWW(1,1:3*p.N),'LineWidth',3)
 plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),'--','LineWidth',3)
 legend('CoM* X [m]','Achieved CoM X [m] (Matlab)','Achieved CoM X [m] (Simulation)');
 xlabel('Sample [Ts]')
@@ -36,7 +36,7 @@ subplot(3,1,2);
 % plot(p.zmp_y,'LineWidth',3);
 hold on;
 % plot(p.com_y,'LineWidth',5);
-plot(rCWW(2,1:3*p.N),'--','LineWidth',3)
+plot(rCWW(2,1:3*p.N),'LineWidth',3)
 plot(result.com_position(1:3*p.N,2)-result.com_position(3,2),'--','LineWidth',3)
 legend('CoM Y [m]','Achieved CoM Y [m] (Matlab)','Achieved CoM Y [m] (Simulation)');
 xlabel('Sample [Ts]')
@@ -58,8 +58,8 @@ end
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 hold on;
-plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'--','LineWidth',3);
-plot(result.com_position(3:3*p.N,1)-result.com_position(3,1),result.com_position(3:3*p.N,2)-result.com_position(3,2),'LineWidth',3);
+plot(rCWW(1,1:3*p.N), rCWW(2,1:3*p.N),'LineWidth',3);
+plot(result.com_position(3:3*p.N,1),result.com_position(3:3*p.N,2),'LineWidth',3);
 legend('Foot Step', 'Foot Step', 'Foot Step', 'Desired CoM [m]','Achieved CoM [m] (Matlab)','Achieved CoM [m] (Simulation)');
 xlim([-0.1 0.5]);
 ylim([-0.15 0.15]);

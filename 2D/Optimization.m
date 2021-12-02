@@ -14,11 +14,11 @@ param.L3 = L3;
 param.L4 = L4;
 
 % Define mass for each link
-M1 = 0.177000;
-M2 = 0.387000;
-M3 = 0.177000;
-M4 = 0.387000;
-M5 = 0;
+M1 = 0.25;
+M2 = 0.25;
+M3 = 0.25;
+M4 = 0.25;
+M5 = 0.5;
 % Define distance to CoM from joint for each link
 r1 = L1/2;
 r2 = L2/2;
