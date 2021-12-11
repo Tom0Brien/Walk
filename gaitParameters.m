@@ -4,15 +4,15 @@ function p = gaitParameters(robot)
 % p.step_length_x = p.step_time*p.walk_command(1);
 % p.step_length_y = p.step_time*p.walk_command(2);
 
-p.step_time = 4;
-p.step_length_x = 0.2;
+p.step_time = 0.5;
+p.step_length_x = 0.15;
 p.step_length_y = 0.0;
-p.step_height = 0.04;
+p.step_height = 0.06;
 p.step_width = 0.15;
-p.Ts = 0.05;
+p.Ts = 0.01;
 
 % simulation params
-p.walk_time = 16;
+p.walk_time = 14;
 p.iteration = 0; % used in optimization
 p.export = false;
 p.run_simulation = true;
@@ -23,7 +23,7 @@ p.foot_z_offset = 0.035;
 p.N = floor(p.step_time/p.Ts);
 p.initial_conditions = initialConditions;
 p.robot = robot;
-p.num_footsteps = 10;
+p.num_footsteps = 8;
 p.footsteps = generateFootsteps(p);
         
 %zmp params
@@ -32,7 +32,7 @@ p.zc = 0.495;     % Center of Mass Height (constant)
 p.t_preview = p.step_time*2; 
 
 Qe = 1;
-R = 1e-2;
+R = 1e-3;
 
 % Matrix A, B, C, and D from cart table model
 A = [0 1 0;
@@ -49,7 +49,7 @@ sys_c = ss(A, B, C, D);
 sys_d = c2d(sys_c, p.Ts);
 [p.A_d, p.B_d, p.C_d, p.D_d] = ssdata(sys_d);
 
-% A, B, C matrix for LQI control
+% A, B, C matrix for LQR control
 A_tilde = [1 p.C_d*p.A_d;
            zeros(3,1) p.A_d];
 B_tilde = [p.C_d*p.B_d;
@@ -62,9 +62,7 @@ Q = [Qe 0 0 0;
      0 0 0 0;
      0 0 0 0];
 
-% Find optimal gain and ricatti equation with dlqr function
-% K = optimal gain
-% P = ricatti equation
+% Find optimal gain
 [K, P] = dlqr(A_tilde, B_tilde, Q, R);
 
 p.Gi = K(1);

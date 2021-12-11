@@ -1,13 +1,13 @@
 % Params
-param = gaitParameters(robot);
-g = param.g;        % Gravity
-zc = param.zc;       % Center of Mass Height (constant)
-Ts = param.Ts;       % Sample Time 
-sim_time = param.sim_time;
+p = gaitParameters(robot);
+g = p.g;        % Gravity
+zc = p.zc;       % Center of Mass Height (constant)
+Ts = p.Ts;       % Sample Time 
+sim_time = length(p.footsteps) * p.step_time - p.t_preview - p.Ts;
 % Step parameters
-step_length_x = param.step_length_x;
-step_width = param.step_width;
-step_time = param.step_time;
+step_length_x = p.step_length_x;
+step_width = p.step_width;
+step_time = p.step_time;
 % Define state space matrices
 A = [0,1,0;0,0,1;0,0,0];
 B = [0;0;1];
@@ -71,7 +71,7 @@ ylabel('x displacement [m]')
 com_trajectory = [com_x';com_y';zeros(1,length(com_x))];
 figure(6);
 hold on;
-show(param.robot,param.initial_conditions);
+show(p.robot,p.initial_conditions);
 plot3(com_x',com_y',zeros(1,length(com_x)),'LineWidth',3);
 
 

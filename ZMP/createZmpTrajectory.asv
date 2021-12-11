@@ -12,7 +12,7 @@ for i=0:dt:n_step*t_step
     end
 end
 n = size(0:dt:t_step,2) - 1
-% zmp_x = [zeros(1,n) zmp_x]
-% zmp_y = [zeros(1,n) zmp_y]
+zmp_x = [zeros(1,n) zmp_x]
+zmp_y = [zeros(1,n) zmp_y]
 end
 

@@ -33,4 +33,4 @@ trajectory3 = generateFootTrajectory(param,isHalfStep);
 %% Inverse Kinematics 3
 [opt_joint_angles_3] = inverseKinematics(robot,trajectory3,param);
 %% Plot the robot walking
-plot3DRobot([opt_joint_angles opt_joint_angles_2 opt_joint_angles_3 opt_joint_angles_2 opt_joint_angles_3 opt_joint_angles_2 opt_joint_angles_3],robot,param,trajectory1);
+plot3DRobot([opt_joint_angles,opt_joint_angles_2 opt_joint_angles_3 opt_joint_angles_2 opt_joint_angles_3 opt_joint_angles_2 opt_joint_angles_3],robot,param,trajectory1);% opt_joint_angles_2 opt_joint_angles_3 opt_joint_angles_2 opt_joint_angles_3 opt_joint_angles_2 opt_joint_angles_3]

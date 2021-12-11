@@ -59,6 +59,7 @@ plot(t, recovered_theta,'--','LineWidth',4);
 legend({'Encoder [rad]','Recovered Angle [rad]'})
 xlabel('time [s]');
 ylabel('Angle [rad]');
+title('Swing Test Results Simple Object')
 
 %% Disp optimized params
 disp('Estimated Length : ')

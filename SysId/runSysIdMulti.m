@@ -44,18 +44,19 @@ cost = @(params) norm(vertcat(encoder_extract_a,encoder_extract_b) - pendSim(t,p
 %% Plot
 N = size(t,2);
 figure;
-plot(t, encoder_extract_a,'--','LineWidth',2);
+subplot(2,1,1)
+plot(t, encoder_extract_a,'LineWidth',4);
 hold on;
-plot(t, recovered_theta(1:N),'--','LineWidth',2);
+plot(t, recovered_theta(1:N),'--','LineWidth',4);
 legend({'Encoder [rad]','Recovered Angle [rad]'})
 xlabel('time [s]');
 ylabel('Angle [rad]');
 title('Swing Test A')
 
-figure;
-plot(t, encoder_extract_b,'--','LineWidth',2);
+subplot(2,1,2)
+plot(t, encoder_extract_b,'LineWidth',4);
 hold on;
-plot(t, recovered_theta(N+1:end),'--','LineWidth',2);
+plot(t, recovered_theta(N+1:end),'--','LineWidth',4);
 legend({'Encoder [rad]','Recovered Angle [rad]'})
 xlabel('time [s]');
 ylabel('Angle [rad]');

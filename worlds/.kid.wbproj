@@ -8,5 +8,5 @@ orthographicViewHeight: 1
 textFiles: -1
 supportPolygon: blue player 1
 consoles: Console:All:All
-renderingDevicePerspectives: blue player 1:left_camera;0;1.28125;0;0
-renderingDevicePerspectives: blue player 1:right_camera;0;1.28125;0;0
+renderingDevicePerspectives: blue player 1:left_camera;0;1.55;0;0
+renderingDevicePerspectives: blue player 1:right_camera;0;1.55;0;0

@@ -16,7 +16,7 @@ for i = 2*p.N+1:3*p.N
 end
 
 
-%% ZMP X-AXIS
+%% COM X-AXIS
 figure('name','ZMP X-Axis');
 subplot(3,1,1);
 hold on
@@ -27,18 +27,16 @@ xlabel('Sample [Ts]')
 ylabel('X [m]')
 plot(rCWW(1,1:3*p.N),'LineWidth',3)
 plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),'--','LineWidth',3)
-legend('CoM* X [m]','Achieved CoM X [m] (Matlab)','Achieved CoM X [m] (Simulation)');
+legend('CoM X* [m] (Matlab)','Achieved CoM X [m] (Simulation)');
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 
-%% ZMP Y-AXIS
+%% COM Y-AXIS
 subplot(3,1,2);
-% plot(p.zmp_y,'LineWidth',3);
 hold on;
-% plot(p.com_y,'LineWidth',5);
 plot(rCWW(2,1:3*p.N),'LineWidth',3)
 plot(result.com_position(1:3*p.N,2)-result.com_position(3,2),'--','LineWidth',3)
-legend('CoM Y [m]','Achieved CoM Y [m] (Matlab)','Achieved CoM Y [m] (Simulation)');
+legend('CoM Y* [m] (Matlab)','Achieved CoM Y [m] (Simulation)');
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
 

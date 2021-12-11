@@ -11,11 +11,11 @@ p = gaitParameters(robot);
 %% Broad search optimization
 all_results = [];
 iteration = 0;
-for step_length_x=0.4:0.1:0.5
-    for step_time = 0.4:0.1:0.5
+for step_length_x=0.1:0.05:0.35
+%     for step_time = 0.4:0.1:0.5
     %update gait parameters
     p.step_length_x = step_length_x;
-    p.step_time = step_time;
+%     p.step_time = step_time;
     p.footsteps = [];
     p.footsteps = generateFootsteps(p);
     p.iteration = iteration;
@@ -64,39 +64,25 @@ for step_length_x=0.4:0.1:0.5
     %update results param
     result.distance_travelled = result.position(end,1);
     result.step_length_x = step_length_x;
-    result.step_time = step_time;
+%     result.step_time = step_time;
     result.iteration = p.iteration;
     %store results
     all_results = [all_results;result];
-    end
+%     end
 end
 
 %% Plot the results
 close all;
-plot_results = zeros(3,size(all_results,1));
+plot_results = zeros(2,size(all_results,1));
 for i=1:size(all_results,1)
     plot_results(1,i) = all_results(i).step_length_x;
-    plot_results(2,i) = all_results(i).step_time;
-    plot_results(3,i) = all_results(i).distance_travelled;
+%     plot_results(2,i) = all_results(i).step_time;
+    plot_results(2,i) = all_results(i).distance_travelled;
 end
-surf(plot_results)
-title('Optimization Results');
+plot(plot_results(1,:),plot_results(2,:),'LineWidth',3)
+title('Static Walk Results');
 xlabel('Step Length X [m]');
-ylabel('Step Time [s]');
-zlabel('Distance Travelled in '+string(p.walk_time)+' [s]');
+% ylabel('Step Time [s]');
+ylabel('Distance Travelled [m]');
 grid on;
-
-figure;
-title('Step length vs distance travelled');
-plot(plot_results(1,:),plot_results(3,:));
-xlabel('Step Length X [m]');
-ylabel('Distance Travelled [m]');
-
-figure;
-plot(plot_results(3,:),'LineWidth',3);
-title('Distance travelled vs Iteration');
-legend('Distance Travelled');
-xlabel('Step Length X [m]');
-ylabel('Distance Travelled [m]');
-
     

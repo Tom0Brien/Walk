@@ -44,20 +44,20 @@ for i=1:(length(p.footsteps)- 2)
         p.swingFoot = 'right_foot';
     end
 end
-%% Plot Walking
-% Plot first step
-p.support_foot = 'left_foot';
-p.swingFoot = 'right_foot';
-for i=1:(length(p.footsteps)- 2)
-    plotWalk(opt_joint_angles(:,(i-1)*p.N+1:p.N*i),robot,p);
-    if(p.support_foot == "left_foot")
-        p.support_foot = 'right_foot';
-        p.swingFoot = 'left_foot';
-    else
-        p.support_foot = 'left_foot';
-        p.swingFoot = 'right_foot';
-    end
-end
+% %% Plot Walking
+% % Plot first step
+% p.support_foot = 'left_foot';
+% p.swingFoot = 'right_foot';
+% for i=1:(length(p.footsteps)- 2)
+%     plotWalk(opt_joint_angles(:,(i-1)*p.N+1:p.N*i),robot,p);
+%     if(p.support_foot == "left_foot")
+%         p.support_foot = 'right_foot';
+%         p.swingFoot = 'left_foot';
+%     else
+%         p.support_foot = 'left_foot';
+%         p.swingFoot = 'right_foot';
+%     end
+% end
 %% Plot Data
 % % Plot first step
 p.support_foot = 'left_foot';
