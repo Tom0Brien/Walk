@@ -1,0 +1,6 @@
+{
+    "documentId": "7a93aa6f68a144f3337682ca",
+    "outputFormat": "urdf",
+    "simplifySTLs": "all",
+    "mergeSTLs": "all"
+}
