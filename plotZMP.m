@@ -30,31 +30,31 @@ subplot(2,1,1)
 title('ZMP X-Axis');
 plot(p.zmp_x_star,'LineWidth',3);
 hold on;
-plot(p.zmp_x,'LineWidth',3);
-plot(p.zmp_x_star+0.1,'--','LineWidth',3);
-plot(p.zmp_x_star-0.08,'--','LineWidth',3);
-plot(p.com_x,'LineWidth',3.5);
+% plot(p.zmp_x,'LineWidth',3);
+% plot(p.zmp_x_star+0.1,'--','LineWidth',3);
+% plot(p.zmp_x_star-0.08,'--','LineWidth',3);
+% plot(p.com_x,'LineWidth',3.5);
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 legend('Desired ZMP [m] (Trajectory)','Achieved ZMP(Preview Control)','Support polygon upper limit','Support Support polygon lower limit','CoM X');
 xlabel('Sample [Ts]')
 ylabel('x [m]')
-xlim([0 750])
+xlim([0 360])
 
 subplot(2,1,2)
 title('ZMP Y-Axis');
 plot(p.zmp_y_star,'LineWidth',3);
 hold on;
-plot(p.zmp_y,'LineWidth',3);
-plot(p.zmp_y_star+0.05,'--','LineWidth',3);
-plot(p.zmp_y_star-0.05,'--','LineWidth',3);
-plot(p.com_y,'LineWidth',3.5);
+% plot(p.zmp_y,'LineWidth',3);
+% plot(p.zmp_y_star+0.05,'--','LineWidth',3);
+% plot(p.zmp_y_star-0.05,'--','LineWidth',3);
+% plot(p.com_y,'LineWidth',3.5);
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
 legend('Desired ZMP [m] (Trajectory)','Achieved ZMP(Preview Control)','Support polygon upper limit','Support Support polygon lower limit','CoM Y');
 xlabel('Sample [Ts]')
 ylabel('y [m]')
-xlim([0 750])
+xlim([0 360])
 
 figure;
 title('Y-Axis');

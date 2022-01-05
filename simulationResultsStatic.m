@@ -26,8 +26,10 @@ hold on;
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 plot(rCWW(1,1:3*p.N),'LineWidth',3)
-plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),'--','LineWidth',3)
-legend('CoM X* [m] (Matlab)','Achieved CoM X [m] (Simulation)');
+plot(result.com_position(1:3*p.N,1)-result.com_position(3,1),'LineWidth',3)
+plot(rCWW(1,1:3*p.N)+0.04,'--','LineWidth',3)
+plot(rCWW(1,1:3*p.N)-0.04,'--','LineWidth',3)
+legend('CoM X* [m] (Matlab)','Achieved CoM Y [m] (Simulation)','Support polygon upper bound','Support polygon lower bound');
 xlabel('Sample [Ts]')
 ylabel('X [m]')
 
@@ -35,8 +37,10 @@ ylabel('X [m]')
 subplot(3,1,2);
 hold on;
 plot(rCWW(2,1:3*p.N),'LineWidth',3)
-plot(result.com_position(1:3*p.N,2)-result.com_position(3,2),'--','LineWidth',3)
-legend('CoM Y* [m] (Matlab)','Achieved CoM Y [m] (Simulation)');
+plot(result.com_position(1:3*p.N,2),'LineWidth',3)
+plot(rCWW(2,1:3*p.N)+0.04,'--','LineWidth',3)
+plot(rCWW(2,1:3*p.N)-0.04,'--','LineWidth',3)
+legend('CoM Y* [m] (Matlab)','Achieved CoM Y [m] (Simulation)','Support polygon upper bound','Support polygon lower bound');
 xlabel('Sample [Ts]')
 ylabel('Y [m]')
 

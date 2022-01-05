@@ -40,7 +40,6 @@ C2 = [Z1 Z2]/[T1 T2];
 t = linspace(t0,t1,floor(p.N/2));
 tt = t.^((0:3).');
 z = C1*tt;
-v = C1*D*tt;
 t = linspace(t1,t2,p.N-floor(p.N/2));
 tt = t.^((0:3).');
 z = [z C2*tt];

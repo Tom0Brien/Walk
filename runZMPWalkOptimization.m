@@ -11,7 +11,7 @@ p = gaitParameters(robot);
 %% Broad search optimization
 all_results = [];
 iteration = 0;
-for step_length_x=0.1:0.05:0.35
+for step_length_x=0.1:0.05:0.5
 %     for step_time = 0.4:0.1:0.5
     %update gait parameters
     p.step_length_x = step_length_x;
