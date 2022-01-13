@@ -1,3 +1,5 @@
-# QuasiStaticWalk
+# Walk
 
-Walking gaits for the NUgus platform
+Bipedal walking gait generation for the NUgus robot platform
+
+
